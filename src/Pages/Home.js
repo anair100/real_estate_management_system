@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './App.css';
+import '../styles/Home.css';
 
-const HomePage = () => {
+const Home = () => {
   const [type, setType] = useState('House');
   const [transactionType, setTransactionType] = useState('Rent');
   
@@ -98,4 +98,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
