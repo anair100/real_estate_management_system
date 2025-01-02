@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
-import './App.css';
+import '../styles/Home.css';
+import {Route, Routes, Link } from "react-router-dom";
 
-const HomePage = () => {
+function Header() {
+  return (
+    <header>
+      <nav>
+        <Link to="/">Home</Link>
+      </nav>
+    </header>
+  );
+}
+
+function Home() {
   const [type, setType] = useState('House');
   const [transactionType, setTransactionType] = useState('Rent');
   
   return (
-    <div className="container">
-      <header className="header">
-        <nav>
-          <ul>
-            <li>Home</li>
-            <li>Legal Consultancy</li>
-            <li>Properties</li>
-            <li>Sign Up</li>
-          </ul>
-        </nav>
-      </header>
-
+    <div className="container">     
+      <Header/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
       <main className="main-content">
         <img
           src="house-icon.png" // Placeholder for the house icon
@@ -98,4 +102,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
