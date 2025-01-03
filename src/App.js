@@ -9,7 +9,6 @@ function App() {
   return (
     <div>
       <Header />
-      <h1>App is working</h1>
       <Home/>
       <Footer/>
     </div>
