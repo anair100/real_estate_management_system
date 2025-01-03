@@ -2,26 +2,16 @@ import React, { useState } from 'react';
 import '../styles/Home.css';
 import {Route, Routes, Link } from "react-router-dom";
 
-function Header() {
-  return (
-    <header>
-      <nav>
-        <Link to="/">Home</Link>
-      </nav>
-    </header>
-  );
-}
-
-function Home() {
+ function Home() {
   const [type, setType] = useState('House');
   const [transactionType, setTransactionType] = useState('Rent');
   
   return (
     <div className="container">     
-      <Header/>
-      <Routes>
+     
+      {/* <Routes>
         <Route path="/" element={<Home />} />
-      </Routes>
+      </Routes> */}
       <main className="main-content">
         <img
           src="house-icon.png" // Placeholder for the house icon
@@ -100,6 +90,6 @@ function Home() {
       </main>
     </div>
   );
-};
+}
 
 export default Home;
