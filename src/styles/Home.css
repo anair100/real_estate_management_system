@@ -1,20 +1,56 @@
-/* HomePage.css */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-}
-
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding: 0;
+  background-color: #1ccdcd;
 }
 
-.header {
+.main-content {
+  text-align: center;
+  max-width: 100%;
   width: 100%;
-  background-color: #0077cc;
+  background-color: #F1F2F2;
+  padding: 0;
+}
+
+.image-container {
+  padding: 0;
+  max-width: 100%;
+  height: auto;
+  background-color: #96E3E4;
+  margin-left: 0vw;
+  margin-right: 0vw;
+  position: relative;
+}
+
+.home-image {
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-bottom: 1vw;
+}
+
+.input-container {
+  border-style: hidden;
+  border-radius: 20px;
+  padding: 0;
+  width: 50%;
+  height: auto;
+  background-color: #FAFEFF;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  position: relative;
+  margin-top: 3vh;
+}
+
+.h1 {
+  font-style: italic;;
+  margin-top: 2vh;
+  font-family: Inria Serif;
 }
 
 .header ul {
@@ -28,13 +64,6 @@ body {
 
 .header li {
   cursor: pointer;
-}
-
-.main-content {
-  text-align: center;
-  padding: 20px;
-  max-width: 1200px;
-  width: 100%;
 }
 
 .house-icon {
@@ -143,7 +172,7 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .header ul {
     flex-direction: column;
     text-align: center;
@@ -160,5 +189,5 @@ body {
 
   .buttons {
     flex-direction: column;
-  }
-}
+  } 
+}*/

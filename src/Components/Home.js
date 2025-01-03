@@ -1,30 +1,26 @@
 import React, { useState } from 'react';
 import '../styles/Home.css';
 import {Route, Routes, Link } from "react-router-dom";
+import home_image from '../resources/home_image.webp';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col, Image } from "react-bootstrap";
 
  function Home() {
   const [type, setType] = useState('House');
   const [transactionType, setTransactionType] = useState('Rent');
   
   return (
-    <div className="container">     
-     
-      {/* <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes> */}
-      <main className="main-content">
-        <img
-          src="house-icon.png" // Placeholder for the house icon
-          alt="House Icon"
-          className="house-icon"
-        />
-        <h1>Find Your Dream Home!</h1>
-
+      <div className="main-content">
+       <Container  fluid style={{ backgroundColor: "#96E3E4", padding: "20px" }}>
+          <Image style={{ width: "30%", height: "auto" }} src={home_image} />
+       </Container>
+       <Container className="input-container">
+        <h1 class="h1">Find Your Dream Home!</h1>
         <div className="search-bar">
           <input type="text" placeholder="Enter Location" />
           <button><i className="fas fa-search"></i></button>
         </div>
-
+s
         <div className="transaction-type">
           <button
             className={transactionType === 'Rent' ? 'active' : ''}
@@ -87,8 +83,8 @@ import {Route, Routes, Link } from "react-router-dom";
           <button className="search-button">Search Properties</button>
           <button className="add-button">Add Property</button>
         </div>
-      </main>
-    </div>
+       </Container>
+      </div>
   );
 }
 
