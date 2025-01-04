@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AddPropertyDetails.css'; // Import your CSS for styling
+// import 'src/styles/AddPropertyDetails.css'; // Import your CSS for styling
 
 const AddPropertyDetails = () => {
   const [formData, setFormData] = useState({

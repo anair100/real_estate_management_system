@@ -3,6 +3,7 @@ import '../styles/Home.css';
 import {Route, Routes, Link } from "react-router-dom";
 import home_image from '../resources/home_image.webp';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AddPropertyForm from './AddPropertyForm';
 import { Container, Row, Col, Image } from "react-bootstrap";
 
  function Home() {
@@ -81,7 +82,7 @@ s
 
         <div className="buttons">
           <button className="search-button">Search Properties</button>
-          <button className="add-button">Add Property</button>
+          <Link to="/add" className="add-button">Add Property</Link>
         </div>
        </Container>
       </div>
