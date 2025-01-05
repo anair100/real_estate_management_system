@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Image } from "react-bootstrap";
 import home_image from '../resources/home_image.webp';
 
+
 const AddPropertyForm = () => {
+  console.log('Inside AddPropertyForm');
   const [formData, setFormData] = useState({
     type: '',
     price: '',
@@ -47,8 +49,8 @@ const AddPropertyForm = () => {
         }
       })
       alert('Property added successfully');
-      console.log(await response.text());
-      console.log(formData);
+      console.log(await response.json());
+      // console.log(formData);
     } catch (error) {
       console.error(error);
       alert('Failed to add property');

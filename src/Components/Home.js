@@ -27,8 +27,10 @@ import { useNavigate } from 'react-router';
   };
 
   const handleSearch = (e) => {
+
     e.preventDefault();
     const queryParams = new URLSearchParams(formData).toString();    
+    console.log('calling /search');
     navigate(`/search?${queryParams}`);
   };
   
