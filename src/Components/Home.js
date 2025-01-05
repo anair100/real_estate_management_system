@@ -103,7 +103,7 @@ s
           </div>
         </div> */}
 
- <form method='Post' onSubmit={handleSearch} style={{ display: 'grid', gap: '10px', maxWidth: '500px', margin: '0 auto' }}>
+ <form onSubmit={handleSearch} style={{ display: 'grid', gap: '10px', maxWidth: '500px', margin: '0 auto' } }method="post">
       <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleChange} />
       <input type="number" name="priceMin" placeholder="Min Price" value={formData.priceMin} onChange={handleChange} />
       <input type="number" name="priceMax" placeholder="Max Price" value={formData.priceMax} onChange={handleChange} />
@@ -129,7 +129,7 @@ s
     </form>
 
         <div className="buttons">
-          <button className="search-button" >Search Properties</button>
+          {/* <button className="search-button" >Search Properties</button> */}
           <Link to="/add" className="add-button">Add Property</Link>
         </div>
        </Container>

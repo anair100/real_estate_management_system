@@ -39,7 +39,15 @@ const AddPropertyForm = () => {
     }
     try {
       // await api.post('/properties', data);
+     const response = await fetch('http://localhost:8080/add',{
+        method :'POST',
+        body:JSON.stringify(formData),
+        headers:{
+          'Content-Type':'application/json'
+        }
+      })
       alert('Property added successfully');
+      console.log(await response.text());
       console.log(formData);
     } catch (error) {
       console.error(error);
