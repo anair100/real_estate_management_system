@@ -25,32 +25,33 @@ const SearchResult = () => {
         // const response = await api.get(`/properties?${query}`);
         const data = await response.json();
          setProperties(data);
-      //   [{
-      //     type: 'house',
-      //     price: '121212',
-      //     phone: '121',
-      //     email: 'abc1',
-      //     description: 'desc1',
-      //     location: 'Ind',
-      //     googleLocation: 'g1',
-      //     for:'sell'
-        
-      //   },
-      //   {
-      //     type: 'flate',
-      //     price: '3345',
-      //     phone: '121',
-      //     email: 'abc2',
-      //     description: 'd2',
-      //     location: 'indore',
-      //     googleLocation: 'g2',
-      //     for:'rent'
-      //   }
-      // ]
+      
         console.log(properties);
 
       } catch (error) {
         console.error('Error fetching properties:', error);
+        setProperties(  [{
+          type: 'house',
+          price: '121212',
+          phone: '121',
+          email: 'abc1',
+          description: 'desc1',
+          location: 'Ind',
+          googleLocation: 'g1',
+          for:'sell'
+        
+        },
+        {
+          type: 'flate',
+          price: '3345',
+          phone: '121',
+          email: 'abc2',
+          description: 'd2',
+          location: 'indore',
+          googleLocation: 'g2',
+          for:'rent'
+        }
+      ]);
       }
     };
     fetchProperties();
