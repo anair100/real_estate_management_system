@@ -8,17 +8,42 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from 'react-router';
 
  function Home() {
-  const [type, setType] = useState('House');
-  const [transactionType, setTransactionType] = useState('Rent');
+  const min = 5;
+  const max = 99;
+  const step = 10;
   const [formData, setFormData] = useState({
     location: '',
-    priceMin: '',
-    priceMax: '',
-    size: '',
+    priceMin: min,
+    priceMax: max,
+    minSize: min,
+    maxSize: max,
     type: '',
-    rentOrSell: 'rent',
+    rentOrSell: 'Sell'
   });
+ 
+  const handleMinChange = (event) => {
+    const value = Math.min(Number(event.target.value), formData.priceMax - step);
+    setFormData({ ...formData, priceMin: value });
+  };
 
+  const handleMaxChange = (event) => {
+    const value = Math.max(Number(event.target.value), formData.priceMin + step);
+    setFormData({ ...formData, priceMax: value });
+  };
+
+  const handleInputMinChange = (e) => {
+    const minValue = Math.min(Number(e.target.value), formData.priceMax - step);
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: minValue });
+  };
+
+  const handleInputMaxChange = (e) => {
+    const maxValue = Math.max(Number(e.target.value), formData.priceMin + step);
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: maxValue });
+  };
+
+  const [activeTab, setActiveTab] = useState("House");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,112 +52,98 @@ import { useNavigate } from 'react-router';
   };
 
   const handleSearch = (e) => {
-
     e.preventDefault();
     const queryParams = new URLSearchParams(formData).toString();    
     console.log('calling /search');
     navigate(`/search?${queryParams}`);
   };
-  
+
   return (
       <div className="main-content">
        <Container  fluid style={{ backgroundColor: "#96E3E4", padding: "20px" }}>
-          <Image style={{ width: "30%", height: "auto" }} src={home_image} />
+          <Image style={{ width: "25%", height: "auto" }} src={home_image} />
        </Container>
-       <Container className="input-container">
-        <h1 class="h1">Find Your Dream Home!</h1>
-
-        {/* <div className="search-bar">
-          <input type="text" placeholder="Enter Location" />
-          <button><i className="fas fa-search"></i></button>
+       <Container className="input-container" style={{width: "60%", marginTop: "2vh"}}>
+        <h1 style={{ fontSize: "4vw", fontStyle: "italic", marginTop: "2vh", fontFamily: "Inria Serif", 
+          width: "100%", margin: "auto", marginBottom: "0"}}>
+          Find Your Dream Home!</h1>
+        <input type="text" name="location" placeholder="Enter Location" value={formData.location} onChange={handleChange} 
+         style = {{backgroundColor: "#F1F2F2", marginTop: "1vh", marginBottom: "0", width: "60%", fontSize: "2vw"}}/>
+        
+        <div style = {{ display: "flex", width: "60%", marginLeft: "4vw", marginBottom: "0", marginTop: "1vh", borderStyle: "solid"}}>
+         <div style={{ fontSize: "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "bold", width: "40%"}}>
+            Looking For:</div>
+         <div style={{display: "flex", padding: "0", margin: "0", width: "60%", borderStyle: "solid"}}>
+          <label style={{fontSize: "2vw", display: "flex", cursor: "pointer", fontWeight: "initial", width: "50%", borderStyle: "solid"}}>
+           <input type="radio" name="rentOrSell" value="Sell"
+            checked={formData.rentOrSell === 'Sell'} onChange={handleChange}
+            style={{marginRight: "0.5vw", marginLeft: "0", transition: "transform 0.3s ease"}}
+           />Sell
+          </label>
+          <label style={{fontSize: "2vw", display: "flex", cursor: "pointer", fontWeight: "initial", width: "50%", borderStyle: "solid"}}>
+           <input type="radio" name="rentOrSell" value="Rent" checked={formData.rentOrSell === 'Rent'} onChange={handleChange}
+            style={{marginRight: "0.5vw", marginLeft: "0", fontSize: "1vw"}}
+           />Rent
+          </label>
+         </div>
         </div>
-s
-        <div className="transaction-type">
-          <button
-            className={transactionType === 'Rent' ? 'active' : ''}
-            onClick={() => setTransactionType('Rent')}
-          >
-            Rent
-          </button>
-          <button
-            className={transactionType === 'Buy' ? 'active' : ''}
-            onClick={() => setTransactionType('Buy')}
-          >
-            Buy
-          </button>
+
+        <div style = {{ display: "flex", width: "90%", marginLeft: "4vw", marginTop: "0"}}>
+         <div style={{ fontSize: "2vw", display: "flex", padding: "0", fontWeight: "bold", width: "30%", alignItems: "center"}}>
+          Property Type: </div>
+         <div style={{ display: "flex", cursor: "pointer", fontSize: "2vw", fontWeight: "", width: "70%"}}>
+           {["House", "Plot", "Flat", "Land"].map((tab) => (
+           <div
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            style={{padding: "1vw 1vw", borderBottom: activeTab === tab ? "0.2vw solid black" : "0.2vw  inset #F1F2F2", 
+              width: "25%"}}>
+            {tab}
+           </div>
+           ))}
+          </div>
         </div>
 
-        <div className="filters">
-          <div className="property-type">
-            <label>
-              <input
-                type="radio"
-                value="House"
-                checked={type === 'House'}
-                onChange={(e) => setType(e.target.value)}
-              />
-              House
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="Plots"
-                checked={type === 'Plots'}
-                onChange={(e) => setType(e.target.value)}
-              />
-              Plots
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="Flats"
-                checked={type === 'Flats'}
-                onChange={(e) => setType(e.target.value)}
-              />
-              Flats
-            </label>
-          </div>
+        <div style = {{display: "flex", width: "60%", marginLeft: "4vw", width: "70%", marginTop: "1.5vw", borderStyle: "solid"}}>
+         <div style={{ fontSize: "2vw", display: "flex", padding: "0", fontWeight: "bold", padding: "0", alignItems: "center"}}>Budget: </div>
+         <div style = {{marginLeft: "3vw"}}>
+          <input type="range" min={min} max={max} step={step} value={formData.priceMin} onChange={handleMinChange} style = {{width: "10vw", marginTop: "1vw"}}/>
+          <input type="range" min={min} max={max} step={step} value={formData.maxValue} onChange={handleMaxChange} style = {{width: "10vw", marginTop: "1vw"}}/>  
+         </div>
+        </div>
+        <div style = {{display: "flex", marginLeft: "20vw", width: "20%"}}>
+         <div>
+          <input name="priceMin" type="number" min={min} max={formData.priceMax - step} value={formData.priceMin} onChange={handleInputMinChange}/>
+         </div>
+         <div>
+          <input name="priceMax" type="number" min={formData.priceMin + step} max={max} value={formData.priceMax} onChange={handleInputMaxChange} style = {{marginLeft: "4.5vw"}}/>
+         </div>
+        </div>
+        <div style = {{display: "flex", width: "60%", marginLeft: "4vw", width: "50%", marginTop: "1vw"}}>
+         <div style={{ fontSize: "2vw", marginTop: "0.2vw", alignItems: "center",  marginBottom: "0",
+          padding: "0,", fontWeight: "bold"}}>Size: </div>
+         <div style = {{marginLeft: "6vw"}}>
+          <input type="range" min={min} max={max} step={step} value={formData.priceMin} onChange={handleMinChange} style = {{width: "10vw", marginTop: "1vw"}}/>
+          <input type="range" min={min} max={max} step={step} value={formData.maxValue} onChange={handleMaxChange} style = {{width: "10vw", marginTop: "1vw"}}/>  
+         </div>
+        </div>
+        <div style = {{display: "flex", marginLeft: "20vw", width: "20%"}}>
+         <div>
+          <input name="priceMin" type="number" min={min} max={formData.priceMax - step} value={formData.priceMin} onChange={handleInputMinChange}/>
+         </div>
+         <div>
+          <input name="priceMax" type="number" min={formData.priceMin + step} max={max} value={formData.priceMax} onChange={handleInputMaxChange} style = {{marginLeft: "4.5vw"}}/>
+         </div>
+        </div>
 
-          <div className="price-filter">
-            <label>Price:</label>
-            <input type="range" min="0" max="1000000" />
-          </div>
+        <div style = {{marginTop: "2vh", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0vh", borderStyle: "solid"}}>
+         <button style = {{backgroundColor: "#B9B8E3", borderRadius: "5vw", fontSize: "1.2vw", fontWeight: "bold", padding: "0.5vw 2.5vw", 
+          border: "none"}} onClick = {handleSearch}>Search</button>        
+        </div>
 
-          <div className="square-ft-filter">
-            <label>Square Ft:</label>
-            <input type="number" placeholder="Min" />
-            <input type="number" placeholder="Max" />
-          </div>
-        </div> */}
-
- <form onSubmit={handleSearch} style={{ display: 'grid', gap: '10px', maxWidth: '500px', margin: '0 auto' } }method="post">
-      <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleChange} />
-      <input type="number" name="priceMin" placeholder="Min Price" value={formData.priceMin} onChange={handleChange} />
-      <input type="number" name="priceMax" placeholder="Max Price" value={formData.priceMax} onChange={handleChange} />
-      <input type="number" name="size" placeholder="Size (sq ft)" value={formData.size} onChange={handleChange} />
-      <select name="type" value={formData.type} onChange={handleChange}>
-        <option value="">Select Type</option>
-        <option value="flat">Flat</option>
-        <option value="plot">Plot</option>
-        <option value="house">House</option>
-        <option value="land">Land</option>
-      </select>
-      <div>
-        <label>
-          <input type="radio" name="rentOrSell" value="rent" checked={formData.rentOrSell === 'rent'} onChange={handleChange} />
-          Rent
-        </label>
-        <label>
-          <input type="radio" name="rentOrSell" value="sell" checked={formData.rentOrSell === 'sell'} onChange={handleChange} />
-          Sell
-        </label>
-      </div>
-      <button type="submit">Search Properties</button>
-    </form>
-
-        <div className="buttons">
-          {/* <button className="search-button" >Search Properties</button> */}
-          <Link to="/add" className="add-button">Add Property</Link>
+        <div style = {{marginTop: "1vh", display: "flex", alignItems: "center", justifyContent: "center", borderStyle: "solid"}}>
+        <button style = {{backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: "1.2vw", fontWeight: "bold", padding: "0.5vw 3vw", 
+          border: "none"}} onClick = {handleSearch}>Add Property</button>
         </div>
        </Container>
       </div>
