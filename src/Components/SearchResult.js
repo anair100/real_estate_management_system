@@ -14,7 +14,7 @@ const SearchResult = () => {
       try {
         console.log('inside fetchProperties')
         const query = searchParams.toString();
-        const response = await fetch(`http://localhost:8080/search?${searchParams}`, {
+        const response = await fetch(`http://localhost:8080/api/properties/search?${searchParams}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'

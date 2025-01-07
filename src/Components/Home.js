@@ -142,8 +142,8 @@ import { useNavigate } from 'react-router';
         </div>
 
         <div style = {{marginTop: "1vh", display: "flex", alignItems: "center", justifyContent: "center", borderStyle: "solid"}}>
-        <button style = {{backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: "1.2vw", fontWeight: "bold", padding: "0.5vw 3vw", 
-          border: "none"}} onClick = {handleSearch}>Add Property</button>
+        <Link style = {{backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: "1.2vw", fontWeight: "bold", padding: "0.5vw 3vw", 
+          border: "none"}} to = '/add'>Add Property</Link>
         </div>
        </Container>
       </div>

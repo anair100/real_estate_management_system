@@ -13,6 +13,7 @@ const AddPropertyForm = () => {
     email: '',
     description: '',
     location: '',
+    size:'',
     googleLocation: '',
     images: null,
     videos: null,
@@ -41,7 +42,8 @@ const AddPropertyForm = () => {
     }
     try {
       // await api.post('/properties', data);
-     const response = await fetch('http://localhost:8080/add',{
+      console.log('form data',formData);
+     const response = await fetch('http://localhost:8080/api/properties/add',{
         method :'POST',
         body:JSON.stringify(formData),
         headers:{
