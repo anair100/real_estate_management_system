@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
+import api from './api';
 // import api from '../api/api';
 
 const SearchResult = () => {
@@ -14,23 +15,22 @@ const SearchResult = () => {
       try {
         console.log('inside fetchProperties')
         const query = searchParams.toString();
-        const response = await fetch(`http://localhost:8080/api/properties/search?${searchParams}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        console.log(await response.body);
+        // const response = await fetch(`http://localhost:8080/api/properties/search?${searchParams}`, {
+        //   method: 'GET',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   }
+        // })
 
-        // const response = await api.get(`/properties?${query}`);
-        const data = await response.json();
-         setProperties(data);
-      
+        const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
+        console.log(response.data);
+        setProperties(response.data);
+
         console.log(properties);
 
       } catch (error) {
         console.error('Error fetching properties:', error);
-        setProperties(  [{
+        setProperties([{
           type: 'house',
           price: '121212',
           phone: '121',
@@ -38,8 +38,8 @@ const SearchResult = () => {
           description: 'desc1',
           location: 'Ind',
           googleLocation: 'g1',
-          for:'sell'
-        
+          for: 'sell'
+
         },
         {
           type: 'flate',
@@ -49,9 +49,9 @@ const SearchResult = () => {
           description: 'd2',
           location: 'indore',
           googleLocation: 'g2',
-          for:'rent'
+          for: 'rent'
         }
-      ]);
+        ]);
       }
     };
     fetchProperties();
@@ -71,6 +71,10 @@ const SearchResult = () => {
         properties.map((property) => (
           <div key={property._id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', borderRadius: '10px', display: 'flex', gap: '15px' }}>
             <div>
+              {property.images[0]}
+              <div>
+                <img src={`http://localhost:8080/${property.images[0]}`} alt="This is a car image" width={200} /> {/* Use the image */}
+              </div>
               <h3>{property.type} for {property.for}</h3>
               <p>Area: {property.size} Sq. ft.</p>
               <p>Price: ₹ {property.price}</p>
