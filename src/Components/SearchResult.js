@@ -13,6 +13,7 @@ const SearchResult = () => {
     console.log('Inside fetchProperties')
     const fetchProperties = async () => {
       try {
+        
         console.log('inside fetchProperties')
         const query = searchParams.toString();
         // const response = await fetch(`http://localhost:8080/api/properties/search?${searchParams}`, {
@@ -39,6 +40,7 @@ const SearchResult = () => {
           location: 'Ind',
           googleLocation: 'g1',
           for: 'sell'
+
 
         },
         {
@@ -71,10 +73,19 @@ const SearchResult = () => {
         properties.map((property) => (
           <div key={property._id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', borderRadius: '10px', display: 'flex', gap: '15px' }}>
             <div>
-              {property.images[0]}
-              <div>
-                <img src={`http://localhost:8080/${property.images[0]}`} alt="This is a car image" width={200} /> {/* Use the image */}
-              </div>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              {property.images &&
+                property.images.map((image, index) => (
+                  <img
+                    key={index}
+                    src={`http://localhost:8080/${image}`}
+                    alt={`Property ${index + 1}`}
+                    width={200}
+                    style={{ borderRadius: '5px' }}
+                  />
+                ))}
+            </div>
+
               <h3>{property.type} for {property.for}</h3>
               <p>Area: {property.size} Sq. ft.</p>
               <p>Price: ₹ {property.price}</p>
