@@ -15,6 +15,8 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route index element={[<Home/>]}/> 
+        <Route path='/add' element={<AddPropertyForm/>}/>
+        <Route path='/search' element={<SearchResult/>}/>
       </Routes>
       </BrowserRouter>
       <Footer/>

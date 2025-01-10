@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchResult from './SearchResult';
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from 'react-router';
-import MultiRangeSlider from "multi-range-slider-react";
+
 
  function Home() {
   const [formData, setFormData] = useState({
@@ -197,8 +197,8 @@ const renderTypesForRent = () => {
           border: "none"}} onClick = {handleSearch}>Search</button>        
         </div>
         <div style = {{marginTop: "1vw", display: "flex", alignItems: "center", justifyContent: "center"}}>
-        <Link style = {{backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: "1.2vw", fontWeight: "bold", padding: "1vw 3vw", 
-          border: "none"}} onClick = {handleSearch}>Add Property</Link>
+        <Link to='/add' style =  {{backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: "1.2vw", fontWeight: "bold", padding: "1vw 3vw", 
+          border: "none"}} >Add Property</Link>
         </div>
        </Container>
       </div>
