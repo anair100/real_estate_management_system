@@ -39,83 +39,88 @@
   margin-top: 3vh;
 }
 
-.double-range-container {
-  width: 90%;
-  max-width: 600px;
-  margin: 2rem auto;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  border-style: solid
-}
-
 .slider-container {
   position: relative;
-  width: 100%;
-  border-style: solid;
-  height: 2rem;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  margin-left: 1vw;
 }
 
-.slider-range {
+/* Slider Track */
+.slider-track {
   position: absolute;
-  height: 0.5rem;
-  background: #cbc4dd;
+  height: 1vw;
+  background: #ddd;
   border-radius: 0.25rem;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 100%;
   z-index: 1;
 }
 
+/* Highlighted Range */
+.slider-highlight {
+  position: absolute;
+  height: 1vw;
+  background: #c2bad5;
+  border-radius: 0.25rem;
+  z-index: 2;
+  width: 100%
+}
+
+/* Slider Thumbs */
 .slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
   position: absolute;
   width: 100%;
-  height: 2rem;
+  height: 1vw;
   background: transparent;
-  pointer-events: none; /* Prevent interaction with the track */
-  z-index: 2;
+  pointer-events: none;
+  appearance: none;
+  z-index: 3;
 }
 
 .slider-thumb::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 1rem;
-  height: 1rem;
-  background: #6c7ee3;
-  border-radius: 50%;
-  cursor: pointer;
-  pointer-events: auto; /* Enable interaction with the thumb */
-}
-
-.slider-thumb::-moz-range-thumb {
-  width: 1rem;
-  height: 1rem;
-  background: #007bff;
-  border-radius: 50%;
+  appearance: none;
+  width: 0.2vw;
+  height: 2.2vw;
+  background: #815ea4;
   cursor: pointer;
   pointer-events: auto;
 }
 
-.range-values {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: #333;
+.slider-thumb::-moz-range-thumb {
+  width: 0.2vw;
+  height: 2.2vw;
+  background: #4a90e2;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.slider-thumb-left {
+  z-index: 4;
+}
+
+.slider-thumb-right {
+  z-index: 4;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .double-range-container {
-    width: 95%;
+@media (max-width: 600px) {
+  .slider-track {
+    height: 2vw;
   }
 
-  .slider-thumb::-webkit-slider-thumb,
+  .slider-highlight {
+    height: 2vw
+  }
+
+  .slider-thumb::-webkit-slider-thumb {
+    width: 0.5vw;
+    height: 4.2vw;
+  }
+
   .slider-thumb::-moz-range-thumb {
-    width: 0.8rem;
-    height: 0.8rem;
-  }
-
-  .range-values {
-    font-size: 0.9rem;
+    width: 0.5vw;
+    height: 4.2vw;
   }
 }
