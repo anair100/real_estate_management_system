@@ -3,12 +3,13 @@ import '../styles/Home.css';
 import {Route, Routes, Link } from "react-router-dom";
 import home_image from '../resources/home_image.webp';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchResult from './SearchResult';
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from 'react-router';
 
-
  function Home() {
+  const [minValue, setMinValue] = useState(50);
+  const [maxValue, setMaxValue] = useState(150);
+  
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   useEffect(() => {
     const handleResize = () => {
@@ -23,8 +24,8 @@ import { useNavigate } from 'react-router';
 
   const [formData, setFormData] = useState({
     location: '',
-    priceMin: 0,
-    priceMax: 100,
+    priceMin: minValue,
+    priceMax: maxValue,
     minSize: 0,
     maxSize: 100,
     type: 'House',
@@ -94,28 +95,25 @@ import { useNavigate } from 'react-router';
     </div>
     ))}</div>)}
 
-    const [minValue, setMinValue] = useState(50); // Set initial minValue within the range
-    const [maxValue, setMaxValue] = useState(150); // Set initial maxValue within the range
+  const handleMinChange = (e) => {
+    const value = Math.min(Number(e.target.value), maxValue - 1);
+    setMinValue(value);
+  };
   
-    const handleMinChange = (e) => {
-      const value = Math.min(Number(e.target.value), maxValue - 1);
-      setMinValue(value);
+  const handleMaxChange = (e) => {
+    const value = Math.max(Number(e.target.value), minValue + 1);
+    setMaxValue(value);
     };
   
-    const handleMaxChange = (e) => {
-      const value = Math.max(Number(e.target.value), minValue + 1);
-      setMaxValue(value);
-    };
+  const handleMinInputChange = (e) => {
+    const value = Math.min(Number(e.target.value), maxValue - 1);
+    if (!isNaN(value) && value >= 5) setMinValue(value);
+  };
   
-    const handleMinInputChange = (e) => {
-      const value = Math.min(Number(e.target.value), maxValue - 1);
-      if (!isNaN(value) && value >= 5) setMinValue(value);
-    };
-  
-    const handleMaxInputChange = (e) => {
-      const value = Math.max(Number(e.target.value), minValue + 1);
-      if (!isNaN(value) && value <= 200) setMaxValue(value);
-    };
+  const handleMaxInputChange = (e) => {
+    const value = Math.max(Number(e.target.value), minValue + 1);
+    if (!isNaN(value) && value <= 200) setMaxValue(value);
+  };
   
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -132,18 +130,18 @@ import { useNavigate } from 'react-router';
 
   return (
       <div className="main-content">
-       <Container  fluid style={{ backgroundColor: isMobile? "#96E3E4": "#96E3E4", padding: "20px" }}>
-          <Image style={{ width: "25%", height: "auto" }} src={home_image} />
-       </Container>
+       <div style={{ backgroundColor: isMobile? "#96E3E4": "#96E3E4", padding: "20px" }}>
+          <Image style={{ width: isMobile? "50%": "25%", height: "auto" }} src={home_image} />
+       </div>
        <Container className="input-container" style={{width: isMobile ? "90%" : "50%", marginTop: "2vh"}}>
-        <h1 style={{  fontSize: isMobile ? "6vw" : "4vw", fontStyle: "italic", marginTop: "2vw", fontFamily: "Inria Serif", 
-          width: "100%", margin: "auto", marginBottom: "0vw", padding: "0vw"}}>
+        <h1 style={{  fontSize: isMobile ? "7vw" : "4vw", fontStyle: "italic", marginTop: "2vw", fontFamily: "Inria Serif", 
+          width: "100%", margin: "auto", marginBottom: isMobile? "2.5vw":"1.2vw", padding: "0vw"}}>
           Find Your Dream Home!</h1>
         <input type="text" name="location" placeholder="Enter Location" value={formData.location} onChange={handleChange} 
-         style = {{backgroundColor: "#F1F2F2", marginTop: "1.5vw", marginBottom: "0vw", width: "60%", 
-         fontSize: "1.5vw", borderRadius: "5vw", padding: "0vw"}}/>
+         style = {{backgroundColor: "#F1F2F2", marginTop: "0", marginBottom: isMobile? "2vw": "1.5vw", width: isMobile? "80%": "60%", 
+         fontSize: isMobile? "3vw": "1.5vw", borderRadius: "5vw", padding: isMobile? "1vw 2vw": "0.5vw 1vw", fontWeight: "500"}}/>
         
-        <div style = {{ display: "flex", width: "80%", marginLeft: "2vw", marginBottom: "1vw", marginTop: "1vw"}}>
+        <div style = {{ display: "flex", width: "80%", marginLeft: "2vw", marginBottom: isMobile? "2vw": "1vw", marginTop: "0"}}>
          <div style={{ fontSize: isMobile? "4vw": "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500"}}>
             Looking For:</div>
          <div style={{display: "flex", padding: "0", margin: "0", width: "50%"}}>
@@ -165,14 +163,14 @@ import { useNavigate } from 'react-router';
          </div>
         </div>
 
-        <div style = {{ display: "flex", width: isMobile? "100%": "95%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: "0"}}>
+        <div style = {{ display: "flex", width: isMobile? "100%": "95%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile? "2.5vw": "1.5vw"}}>
          <div style={{ fontSize: isMobile? "4vw": "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500", marginRight: isMobile? "2vw": "1.4vw"}}>
           Property Type: </div>
           {formData.rentOrSell === 'Sell' && renderTypesForSell()}
           {formData.rentOrSell === 'Rent' && renderTypesForRent()}
         </div>
 
-        <div style = {{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "1.5vw", padding: "0", marginBottom: "0"}}>
+        <div style = {{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile? "1vw": "0.3vw"}}>
          <div style={{ fontSize: isMobile? "4vw": "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500", 
           marginRight: isMobile? "2vw": "1.4vw"}}>Budget: </div>
          <div className="slider-container">
@@ -182,9 +180,9 @@ import { useNavigate } from 'react-router';
           <input type="range" min="5" max="200" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right"/>
          </div>
         </div>
-        <div style = {{display: "flex", alignItems: "center", marginLeft: isMobile? "19vw": "11.5vw", width: "50%", padding: "0", marginTop: "0.5vw", marginBottom: "0"}}>
-          <label style = {{fontSize: isMobile? "2.5vw": "1.5vw"}}>Min: </label>
-          <input style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "2.5vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 0.5vw",  border: "1px solid #ccc"}}
+        <div style = {{display: "flex", alignItems: "center", marginLeft: isMobile? "19vw": "11.5vw", width: "50%", padding: "0", marginTop: "0", marginBottom: isMobile? "1.5vw": "1vw"}}>
+          <label style = {{fontSize: isMobile? "3vw": "1.5vw"}}>Min: </label>
+          <input style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "3vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 0.5vw",  border: "1px solid #ccc"}}
           id="min-input"
             type="number"
             value={minValue}
@@ -192,8 +190,8 @@ import { useNavigate } from 'react-router';
             min="5"
             max={maxValue - 1}
           />
-          <label style = {{fontSize: isMobile? "2.5vw": "1.5vw", marginLeft: "1vw"}}>Max: </label>
-          <input  style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "2.5vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 0.5vw",  border: "1px solid #ccc"}}
+          <label style = {{fontSize: isMobile? "3vw": "1.5vw", marginLeft: isMobile? "6vw": "2vw"}}>Max: </label>
+          <input  style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "3vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 0.5vw",  border: "1px solid #ccc"}}
             id="max-input"
             type="number"
             value={maxValue}
@@ -203,7 +201,7 @@ import { useNavigate } from 'react-router';
           />
         </div>
 
-        <div style = {{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "1.5vw", padding: "0", marginBottom: "0vw"}}>
+        <div style = {{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile? "1vw": "0.5vw"}}>
          <div style={{ fontSize: isMobile? "4vw": "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500", 
           marginRight: isMobile? "2vw": "1.4vw"}}>Size: </div>
          <div className="slider-container">
@@ -213,18 +211,18 @@ import { useNavigate } from 'react-router';
           <input type="range" min="5" max="200" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right"/>
          </div>
         </div>
-        <div style = {{display: "flex", alignItems: "center", marginLeft: isMobile? "13vw": "8.5vw", width: "50%", padding: "0", marginTop: "0.5vw", marginBottom: "0"}}>
-          <label style = {{fontSize: isMobile? "2.5vw": "1.5vw"}}>Min: </label>
-          <input style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "2.5vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 1.5vw",  border: "1px solid #ccc"}}
-            id="min-input"
+        <div style = {{display: "flex", alignItems: "center", marginLeft: isMobile? "19vw": "11.3vw", width: "50%", padding: "0", marginTop: "0", marginBottom: "0"}}>
+          <label style = {{fontSize: isMobile? "3vw": "1.5vw"}}>Min: </label>
+          <input style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "3vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 0.5vw",  border: "1px solid #ccc"}}
+          id="min-input"
             type="number"
             value={minValue}
             onChange={handleMinInputChange}
             min="5"
             max={maxValue - 1}
           />
-          <label style = {{fontSize: isMobile? "2.5vw": "1.5vw", marginLeft: "1vw"}}>Max: </label>
-          <input  style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "2.5vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 0.5vw",  border: "1px solid #ccc"}}
+          <label style = {{fontSize: isMobile? "3vw": "1.5vw", marginLeft: isMobile? "6vw": "2vw"}}>Max: </label>
+          <input  style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "3vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 0.5vw",  border: "1px solid #ccc"}}
             id="max-input"
             type="number"
             value={maxValue}
@@ -235,11 +233,11 @@ import { useNavigate } from 'react-router';
         </div>
 
         <div style = {{marginTop: isMobile? "6vw": "4vw", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0vw", padding: "0"}}>
-         <button style = {{backgroundColor: "#B9B8E3", borderRadius: "5vw", fontSize: isMobile? "2.5vw": "1.5vw", fontWeight: "bold", padding: isMobile? "1.5vw 10vw": "0.8vw 6vw", 
+         <button style = {{backgroundColor: "#B9B8E3", borderRadius: "5vw", fontSize: isMobile? "3vw": "1.5vw", fontWeight: "bold", padding: isMobile? "2.5vw 10vw": "0.8vw 5vw", 
           border: "none"}} onClick = {handleSearch}>Search</button>        
         </div>
         <div style = {{marginTop: isMobile? "2.5vw": "1.5vw", display: "flex", alignItems: "center", justifyContent: "center"}}>
-        <button to='/add' style =  {{backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: isMobile? "2.5vw": "1.5vw", fontWeight: "bold", padding: isMobile? "1.5vw 15vw": "0.8vw 10vw", 
+        <button to='/add' style =  {{backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: isMobile? "3vw": "1.5vw", fontWeight: "bold", padding: isMobile? "2.5vw 15vw": "0.8vw 8vw", 
           border: "none"}} >Add Property</button>
         </div>
        </Container>

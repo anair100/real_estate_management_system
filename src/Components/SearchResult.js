@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import api from './api';
+import home_image from '../resources/home_image.webp';
 // import api from '../api/api';
 
 const SearchResult = () => {
   const [properties, setProperties] = useState([]);
   const [searchParams] = useSearchParams();
   console.log("searchParams")
-
 
   useEffect(() => {
     console.log('Inside fetchProperties')
@@ -40,8 +40,6 @@ const SearchResult = () => {
           location: 'Ind',
           googleLocation: 'g1',
           for: 'sell'
-
-
         },
         {
           type: 'flate',
@@ -60,52 +58,33 @@ const SearchResult = () => {
   }, [searchParams]);
 
   return (
-    <div>
-      <h4>{searchParams.get("location")},
-        {searchParams.get("priceMin")},
-        {searchParams.get("priceMax")},
-        {searchParams.get("size")},
-        {searchParams.get("type")},
-        {searchParams.get("rentOrSell")}</h4>
+    <div style = {{backgroundColor: "#F1F2F2"}}>
+      <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "20%"}}>
+      <button style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
+        padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0"}}>Modify Search</button>
+      </div>
+      <div style = {{marginLeft: "5vw", fontSize: "2vw", marginTop: "2vw", padding: "0"}}>Showing 2 of 5</div>
+      <div style = {{marginLeft: "5vw", fontSize: "3vw", marginTop: "0", padding: "0", borderStyle: "solid", 
+        marginRight: "0.5vw", width: "80%"}}>Projects In {searchParams.get("location")}</div>
 
-
-      {properties.length ? (
-        properties.map((property) => (
-          <div key={property._id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', borderRadius: '10px', display: 'flex', gap: '15px' }}>
-            <div>
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              {property.images &&
-                property.images.map((image, index) => (
-                  <img
-                    key={index}
-                    src={`http://localhost:8080/${image}`}
-                    alt={`Property ${index + 1}`}
-                    width={200}
-                    style={{ borderRadius: '5px' }}
-                  />
-                ))}
-            </div>
-
-              <h3>{property.type} for {property.for}</h3>
-              <p>Area: {property.size} Sq. ft.</p>
-              <p>Price: ₹ {property.price}</p>
-              <p>{property.location}</p>
-              <p>{property.description}</p>
-              <p>{property.price}</p>
-              <p>{property.email}</p>
-              <p>{property.phone}</p>
-              <button style={{ backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '5px', padding: '5px 10px', marginRight: '10px' }}>Contact</button>
-              <button style={{ backgroundColor: 'green', color: 'white', border: 'none', borderRadius: '5px', padding: '5px 10px' }}>Whatsapp</button>
-            </div>
-
-
-            {/* <img src={`http://localhost:5000/${property.images[0]}`} alt={property.type} style={{ width: '100px', height: '100px' }} /> */}
+      <ul style = {{width: "60%", marginTop: "2vw", marginBottom: "1vw", position: "relative", height: "auto", paddingLeft: "0", paddingTop: "0", borderStyle: "solid", display: "block"}}>
+       {properties.map((property) => (
+        <div style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto", backgroundColor: "#FAFEFF", 
+          display: "flex", marginBottom: "1vw", marginTop: "0", padding: "0"}}>               
+         <img style = {{width: "20%"}} src={home_image}/>
+         <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
+          padding: "0", width: "80%", height: "100%", marginRight: "0vw", backgroundColor: "#FAFEFF"}}>  
+          <p class="cgal-info-header-text">
+           {property.type}
+          </p>
+          <p class="cgal-info-desc-text">
+           {property.location}
+          </p>
+          <button style={{ backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '5px', padding: '5px 10px', marginRight: '10px' }}>Contact</button>
+          <button style={{ backgroundColor: 'green', color: 'white', border: 'none', borderRadius: '5px', padding: '5px 10px' }}>Whatsapp</button>
           </div>
-
-        ))
-      ) : (
-        <p>No properties found</p>
-      )}
+        </div>))}
+      </ul>
     </div>
   );
 };
