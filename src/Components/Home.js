@@ -6,9 +6,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from 'react-router';
 
+
  function Home() {
   const [minValue, setMinValue] = useState(50);
   const [maxValue, setMaxValue] = useState(150);
+  const [locations, setLocations] = useState([]);
   
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   useEffect(() => {
@@ -128,6 +130,39 @@ import { useNavigate } from 'react-router';
     navigate(`/search?${queryParams}`);
   };
 
+  const fetchSuggestions = async (query) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/properties/address?query=${encodeURIComponent(query)}`);
+      if (!response.ok) throw new Error('Failed to fetch suggestions');
+      const data = await response.json();
+
+      // Update suggestions state
+      console.log('data',data,data.length);
+      setLocations(data || []);
+      console.log('locations',locations,locations.length);
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
+    }
+  };
+  function useDebounce(value, delay) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+  
+    useEffect(() => {
+      const handler = setTimeout(() => setDebouncedValue(value), delay);
+      return () => clearTimeout(handler);
+    }, [value, delay]);
+  
+    return debouncedValue;
+  }
+  
+  // In your component:
+  const debouncedQuery = useDebounce(formData.location, 300);
+  useEffect(() => {
+    // if (debouncedQuery.trim() !== '') {
+      fetchSuggestions(debouncedQuery);
+    // }
+  }, [debouncedQuery]);
+
   return (
       <div className="main-content">
        <div style={{ backgroundColor: isMobile? "#96E3E4": "#96E3E4", padding: "20px" }}>
@@ -137,10 +172,49 @@ import { useNavigate } from 'react-router';
         <h1 style={{  fontSize: isMobile ? "7vw" : "4vw", fontStyle: "italic", marginTop: "2vw", fontFamily: "Inria Serif", 
           width: "100%", margin: "auto", marginBottom: isMobile? "2.5vw":"1.2vw", padding: "0vw"}}>
           Find Your Dream Home!</h1>
-        <input type="text" name="location" placeholder="Enter Location" value={formData.location} onChange={handleChange} 
-         style = {{backgroundColor: "#F1F2F2", marginTop: "0", marginBottom: isMobile? "2vw": "1.5vw", width: isMobile? "80%": "60%", 
-         fontSize: isMobile? "3vw": "1.5vw", borderRadius: "5vw", padding: isMobile? "1vw 2vw": "0.5vw 1vw", fontWeight: "500"}}/>
-        
+          <div>
+          <div>
+      <input
+        type="text"
+        name="location"
+        placeholder="Enter Location"
+        value={formData.location}
+        onChange={handleChange}
+        style={{
+          backgroundColor: '#F1F2F2',
+          marginTop: '0',
+          marginBottom: isMobile ? '2vw' : '1.5vw',
+          width: isMobile ? '80%' : '60%',
+          fontSize: isMobile ? '3vw' : '1.5vw',
+          borderRadius: '5vw',
+          padding: isMobile ? '1vw 2vw' : '0.5vw 1vw',
+          fontWeight: '500',
+        }}
+      />
+      {/* Display Suggestions */}
+      {locations.length > 0 && (
+        <ul style={{ listStyle: 'none', padding: 0, marginTop: '1vw' }}>
+          {locations.map((suggestion, index) => (
+            <li
+              key={index}
+              style={{
+                fontSize:10,
+                background: '#fff',
+                padding: '0.5vw 1vw',
+                margin: '0.5vw 0',
+                borderRadius: '0.5vw',
+                cursor: 'pointer',
+              }}
+              onClick={() => setFormData({ location: suggestion.location })}
+            >
+              {console.log("suggestions"+suggestion.location)}
+              {suggestion.location}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+    </div>
         <div style = {{ display: "flex", width: "80%", marginLeft: "2vw", marginBottom: isMobile? "2vw": "1vw", marginTop: "0"}}>
          <div style={{ fontSize: isMobile? "4vw": "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500"}}>
             Looking For:</div>
