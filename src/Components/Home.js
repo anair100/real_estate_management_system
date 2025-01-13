@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 import '../styles/Home.css';
 import {Route, Routes, Link } from "react-router-dom";
 import home_image from '../resources/home_image.webp';
@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
   const [minValue, setMinValue] = useState(50);
   const [maxValue, setMaxValue] = useState(150);
   const [locations, setLocations] = useState([]);
+  const inputRef = useRef(null); // Proper declaration of inputRef
   
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   useEffect(() => {
@@ -155,6 +156,8 @@ import { useNavigate } from 'react-router';
     return debouncedValue;
   }
   
+
+  
   // In your component:
   const debouncedQuery = useDebounce(formData.location, 300);
   useEffect(() => {
@@ -162,6 +165,20 @@ import { useNavigate } from 'react-router';
       fetchSuggestions(debouncedQuery);
     // }
   }, [debouncedQuery]);
+  
+ // Handle outside click to set suggetion [] or to remove suggetion box
+ useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
+      setLocations([]); // Clear suggestions if clicked outside
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, []);
 
   return (
       <div className="main-content">
@@ -193,19 +210,37 @@ import { useNavigate } from 'react-router';
       />
       {/* Display Suggestions */}
       {locations.length > 0 && (
-        <ul style={{ listStyle: 'none', padding: 0, marginTop: '1vw' }}>
+        <ul style={{
+          position: 'absolute', // Make it float
+          top: '25%', // Place it below the input
+          left: 0,
+          width: '100%',
+          backgroundColor: 'rgba(255, 255, 255, 0.7)', // Transparent background
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          padding: '0',
+          margin: '0',
+          listStyle: 'none',
+          zIndex: 2,
+          borderRadius: '0.5vw',
+          maxHeight: '10vw', // Limit height to make it scrollable
+          overflowY: 'auto', // Enable scrolling
+          backdropFilter: 'blur(10px)', // Optional: add a blur effect
+        }}>
           {locations.map((suggestion, index) => (
             <li
               key={index}
               style={{
-                fontSize:10,
-                background: '#fff',
                 padding: '0.5vw 1vw',
-                margin: '0.5vw 0',
-                borderRadius: '0.5vw',
                 cursor: 'pointer',
+                borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+                   backgroundColor: 'transparent',
               }}
-              onClick={() => setFormData({ location: suggestion.location })}
+
+              onClick={() => {
+                setFormData({ location: suggestion.location });
+                setLocations([]);
+              }
+                 }
             >
               {console.log("suggestions"+suggestion.location)}
               {suggestion.location}
