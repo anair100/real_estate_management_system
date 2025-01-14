@@ -8,13 +8,13 @@ const Header = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="/home">Property management</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="#link">legal consultancy </Nav.Link>
+            <NavDropdown title="Services" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
@@ -26,6 +26,11 @@ const Header = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <div className="ms-auto">
+        <Nav.Link href="#signup" className="btn btn-primary text-green">
+          Sign Up
+        </Nav.Link>
+      </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>

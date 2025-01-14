@@ -14,7 +14,8 @@ function App() {
       <Header/>
       <BrowserRouter>
       <Routes>
-        <Route index element={[<Home/>]}/> 
+        <Route  index  element={[<Home/>]}/> 
+        <Route path='/home' element={<Home/>}/>
         <Route path='/add' element={<AddPropertyForm/>}/>
         <Route path='/search' element={<SearchResult/>}/>
       </Routes>
