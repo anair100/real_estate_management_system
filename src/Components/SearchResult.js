@@ -101,12 +101,13 @@ const SearchResult = () => {
         padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: "1.5vw", float: "right"}}>Modify Search</button>
       </div>
 
-      <div style = {{marginLeft: "11vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
+      <div style = {{marginLeft: "15vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
         marginBottom: "1.2vw", width: "80%"}}>
-        <h1 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "1.5vw"}}>Projects In {searchParams.get("location")}</h1>
+        <h1 style = {{fontSize: "1vw", marginTop: "0", padding: "0", marginBottom: "1.5vw"}}>Showing Projects in</h1>
+        <h2 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "1.5vw"}}>{searchParams.get("location")}</h2>
       </div>
 
-      <ul style = {{width: "80%", margin: "auto", position: "relative", height: "auto", padding: "0", display: "block"}}>
+      <ul style = {{width: "70%", margin: "auto", position: "relative", height: "auto", padding: "0", display: "block"}}>
        {properties.map((property) => (
         <div style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto", backgroundColor: "#FAFEFF", 
           display: "flex", marginBottom: "1vw", marginTop: "0", padding: "1vw 1vw"}}>               
@@ -125,7 +126,7 @@ const SearchResult = () => {
            </div>
           </div>
           <div style = {{ display: "flex", maxWidth: "100%", margin: "auto", marginTop: "0.5vw",
-            marginBottom: "0.5vw", width: "100%"}}>
+            marginBottom: "0.5vw", width: "100%", borderStyle: "solid"}}>
               <a style = {{padding: "1vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
             fontFamily: "sans-serif", fontSize: "1.5vw", float: "left", marginRight: "5vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
            <a style = {{padding: "1vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
