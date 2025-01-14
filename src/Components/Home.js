@@ -129,7 +129,7 @@ import { useNavigate } from 'react-router';
   };
 
   return (
-      <div className="main-content">
+      <div style = {{textAlign: "center", maxWidth: "100%", width: "100%", marginBottom: "0", backgroundColor: "#F1F2F2", padding: "0"}}>
        <div style={{ backgroundColor: isMobile? "#96E3E4": "#96E3E4", padding: "20px" }}>
           <Image style={{ width: isMobile? "50%": "25%", height: "auto" }} src={home_image} />
        </div>
@@ -151,7 +151,7 @@ import { useNavigate } from 'react-router';
             checked={formData.rentOrSell === 'Sell'} onChange={handleChange}
             style={{ appearance: "none", width: isMobile? "1.5vw": "1vw", height:  isMobile? "1.5vw": "1vw", border: "0.2vw solid black", borderRadius: "50%", 
               outline: "none", cursor: "pointer",  transition: "background-color 0.3s", borderColor: "0.3s", marginRight: "0.5vw", marginLeft: isMobile? "5vw": "3vw"}}
-           />Sell
+           />Buy
           </label>
           <label style={{fontSize: isMobile? "4vw": "2vw", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", fontWeight: "500", 
            width: "50%", borderWidth: "0.1vw", borderColor: "#ccc",  padding: "0vw", boxSizing: "border-box", }}>
