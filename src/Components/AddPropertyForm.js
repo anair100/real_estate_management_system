@@ -40,9 +40,9 @@ const AddPropertyForm = () => {
     location: '',
     size:'',
     googleLocation: '',
+    rentOrSell: 'Sell',
     images: null,
-    videos: null,
-    rentOrSell: 'Sell'
+    videos: null
   });
 
   const handleChange = (e) => {
@@ -137,7 +137,7 @@ for (let [key, value] of data.entries()) {
       <input type="file" name="images" multiple onChange={handleChange} />
       <label>Videos:</label>
       <input type="file" name="videos" multiple onChange={handleChange} />
-      <button onSubmit={handleSubmit} type="submit">Add Property</button>
+      <button onClick={handleSubmit} type="submit">Add Property</button>
     </Container>
     </div>
   );
