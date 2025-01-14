@@ -103,7 +103,7 @@ const SearchResult = () => {
 
       <div style = {{marginLeft: "11vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
         marginBottom: "1.2vw", width: "80%"}}>
-        <h1 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "1.2vw"}}>Projects In {searchParams.get("location")}</h1>
+        <h1 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "1.5vw"}}>Projects In {searchParams.get("location")}</h1>
       </div>
 
       <ul style = {{width: "80%", margin: "auto", position: "relative", height: "auto", padding: "0", display: "block"}}>
@@ -124,14 +124,14 @@ const SearchResult = () => {
              Price: {property.price}
            </div>
           </div>
-          <div style = {{ display: "block", maxWidth: "100%", margin: "auto", marginTop: "0.5vw",
-            marginBottom: "0.5vw", borderStyle: "solid", width: "60%"}}>
+          <div style = {{ display: "flex", maxWidth: "100%", margin: "auto", marginTop: "0.5vw",
+            marginBottom: "0.5vw", width: "100%"}}>
+              <a style = {{padding: "1vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
+            fontFamily: "sans-serif", fontSize: "1.5vw", float: "left", marginRight: "5vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
            <a style = {{padding: "1vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
-           fontFamily: "sans-serif", fontSize: "1.5vw", float: "right", marginLeft: "3vw"}} href="https://api.whatsapp.com/send?phone=9981069233">
+           fontFamily: "sans-serif", fontSize: "1.5vw", float: "right", marginLeft: "3vw", borderRadius: "1vw"}} href="https://api.whatsapp.com/send?phone=9981069233">
             WhatsApp
            </a>
-           <a style = {{padding: "1vw", backgroundColor: "blue", color: "#fff", textDecoration: "none",
-            fontFamily: "sans-serif", fontSize: "1.5vw", float: "left", marginRight: "1vw"}} href="tel:9981069233">Contact</a>
           </div> 
          </div>
         </div>))}
