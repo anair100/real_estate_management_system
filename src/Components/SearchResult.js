@@ -62,22 +62,48 @@ const SearchResult = () => {
 
   return (
     <div style = {{backgroundColor: "#F1F2F2"}}>
-      <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1vw"}}>
-      <label>
-       Looking for:
-       <select style={{ marginLeft: "1vw", padding: "0.5vw", borderRadius: "5px" }}>
-        <option value="buy">Buy</option>
-        <option value="rent">Rent</option>
+      <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: "0.5vw 0.5vw"}}>
+       <select style={{ marginLeft: "1vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+        <option value="" disabled selected>
+          Looking to
+        </option>
+        <option value="Sell">Buy</option>
+        <option value="Rent">Rent</option>
        </select>
-      </label>
-      <button style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
-        padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0"}}>Modify Search</button>
+       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+        <option value="" disabled selected>
+          Property Type
+        </option>
+        <option value="House">House</option>
+        <option value="Plot">Plot</option>
+        <option value="Plot">Flat</option>
+        <option value="Land">Land</option>
+       </select>
+       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+        <option value="" disabled selected>
+         Size
+        </option>
+        <option value="House">House</option>
+        <option value="Plot">Plot</option>
+        <option value="Plot">Flat</option>
+        <option value="Land">Land</option>
+       </select>
+       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+        <option value="" disabled selected>
+         Price
+        </option>
+        <option value="House">House</option>
+        <option value="Plot">Plot</option>
+        <option value="Plot">Flat</option>
+        <option value="Land">Land</option>
+       </select>
+       <button style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
+        padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: "1.5vw", float: "right"}}>Modify Search</button>
       </div>
 
-      <div style = {{marginLeft: "11vw", fontSize: "3vw", marginTop: "0", padding: "0", marginRight: "0.5vw", 
+      <div style = {{marginLeft: "11vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
         marginBottom: "1.2vw", width: "80%"}}>
-        <h1 style = {{fontSize: "2vw", marginTop: "2vw", padding: "0", marginBottom: "0"}}>Showing 2 of 5</h1>
-        <h2 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "1.2vw"}}>Projects In {searchParams.get("location")}</h2>
+        <h1 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "1.2vw"}}>Projects In {searchParams.get("location")}</h1>
       </div>
 
       <ul style = {{width: "80%", margin: "auto", position: "relative", height: "auto", padding: "0", display: "block"}}>
@@ -87,7 +113,7 @@ const SearchResult = () => {
          <img style = {{width: "40%"}} src={`http://localhost:8080/${property.images[0]}`} alt={`Property`}/>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
           padding: "0", width: "80%", height: "100%", marginRight: "0vw", marginLeft: "1vw",backgroundColor: "#FAFEFF", width: "50%"}}>  
-          <div style = {{fontSize: "2vw", fontWeight: "600"}}>
+          <div style = {{fontSize: "2vw", fontWeight: "700"}}>
            {property.size} {property.type} For {property.rentOrSell} In {property.location}
           </div>
           <div style = {{fontSize: "2vw", fontWeight: "600"}}>

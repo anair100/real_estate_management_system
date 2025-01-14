@@ -37,6 +37,12 @@ import { useNavigate } from 'react-router';
 
   const radioButtons = document.querySelectorAll('input[type="radio"]');
   radioButtons.forEach((radio) => {
+    if (radio.checked) {
+      radio.style.backgroundColor = '#007BFF'; // Highlight background
+      radio.style.borderColor = 'black'; // Darker border
+    }
+  });
+  radioButtons.forEach((radio) => {
     radio.addEventListener('change', () => {
       radioButtons.forEach((btn) => {
         btn.style.backgroundColor = ''; // Reset background
@@ -74,16 +80,17 @@ import { useNavigate } from 'react-router';
 
   const renderTypesForRent = () => {
    return(<div style={{ display: "flex", cursor: "pointer", fontSize: isMobile? "4vw": "2vw", fontWeight: "", width: "60%"}}>
-  { ["House", "Flat"].map((tab) => (
-  <div
-   key={tab}
-   name="type"
-   onClick={() => handleTabClick(tab)}
-   style={{padding: "0.1vw 0.1vw", borderBottom: activeTab === tab ? "0.1vw solid black" : "0.2vw  inset #F1F2F2", 
-     width: "25%"}}>
+   { ["House", "Flat"].map((tab) => (
+   <div
+    key={tab}
+    name="type"
+    onClick={() => handleTabClick(tab)}
+    style={{padding: "0.1vw 0.1vw", borderBottom: activeTab === tab ? "0.1vw solid black" : "0.2vw  inset #F1F2F2", 
+    width: "25%"}}>
    {tab}
   </div>
-  ))}</div>)}
+  ))}</div>)
+  }
 
   const renderSizeForFlat = () => {
     return(<div style={{ display: "flex", cursor: "pointer", fontSize: "1.5vw", fontWeight: "", width: "70%"}}>
@@ -96,7 +103,8 @@ import { useNavigate } from 'react-router';
        width: "25%"}}>
      {tab}
     </div>
-    ))}</div>)}
+    ))}</div>)
+  }
 
   const handleMinChange = (e) => {
     const value = Math.min(Number(e.target.value), maxValue - 1);
@@ -155,8 +163,6 @@ import { useNavigate } from 'react-router';
   
     return debouncedValue;
   }
-  
-
   
   // In your component:
   const debouncedQuery = useDebounce(formData.location, 300);
@@ -258,21 +264,21 @@ import { useNavigate } from 'react-router';
            width: "50%", borderWidth: "0.1vw", borderColor: "#ccc",  padding: "0vw", boxSizing: "border-box"}}>
            <input type="radio" name="rentOrSell" value="Sell"
             checked={formData.rentOrSell === 'Sell'} onChange={handleChange}
-            style={{ appearance: "none", width: isMobile? "1.5vw": "1vw", height:  isMobile? "1.5vw": "1vw", border: "0.2vw solid black", borderRadius: "50%", 
+            style={{ appearance: "none", width: isMobile? "2vw": "1vw", height:  isMobile? "2vw": "1vw", border: "0.2vw solid black", borderRadius: "50%", 
               outline: "none", cursor: "pointer",  transition: "background-color 0.3s", borderColor: "0.3s", marginRight: "0.5vw", marginLeft: isMobile? "5vw": "3vw"}}
            />Buy
           </label>
           <label style={{fontSize: isMobile? "4vw": "2vw", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", fontWeight: "500", 
            width: "50%", borderWidth: "0.1vw", borderColor: "#ccc",  padding: "0vw", boxSizing: "border-box", }}>
            <input type="radio" name="rentOrSell" value="Rent" checked={formData.rentOrSell === 'Rent'} onChange={handleChange}
-            style={{appearance: "none", width: isMobile? "1.5vw": "1vw", height:  isMobile? "1.5vw": "1vw", border: "0.2vw solid black", borderRadius: "50%", 
+            style={{appearance: "none", width: isMobile? "2vw": "1vw", height:  isMobile? "2vw": "1vw", border: "0.2vw solid black", borderRadius: "50%", 
               outline: "none", cursor: "pointer",  transition: "background-color 0.3s", borderColor: "0.3s", marginRight: "0.5vw"}}
            />Rent
           </label>
          </div>
         </div>
 
-        <div style = {{ display: "flex", width: isMobile? "100%": "95%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile? "2.5vw": "1.5vw"}}>
+        <div style = {{ display: "flex", width: isMobile? "100%": "95%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile? "4vw": "1.5vw"}}>
          <div style={{ fontSize: isMobile? "4vw": "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500", marginRight: isMobile? "2vw": "1.4vw"}}>
           Property Type: </div>
           {formData.rentOrSell === 'Sell' && renderTypesForSell()}
@@ -289,7 +295,7 @@ import { useNavigate } from 'react-router';
           <input type="range" min="5" max="200" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right"/>
          </div>
         </div>
-        <div style = {{display: "flex", alignItems: "center", marginLeft: isMobile? "19vw": "11.5vw", width: "50%", padding: "0", marginTop: "0", marginBottom: isMobile? "1.5vw": "1vw"}}>
+        <div style = {{display: "flex", alignItems: "center", marginLeft: isMobile? "19vw": "11.5vw", width: "50%", padding: "0", marginTop: "0", marginBottom: isMobile? "4vw": "1vw"}}>
           <label style = {{fontSize: isMobile? "3vw": "1.5vw"}}>Min: </label>
           <input style = {{width: "25%", marginLeft: "1vw", fontSize: isMobile? "3vw": "1.5vw",   borderRadius: "10px", padding: "0.2vw 0.5vw",  border: "1px solid #ccc"}}
           id="min-input"
@@ -347,7 +353,7 @@ import { useNavigate } from 'react-router';
         </div>
         <div style = {{marginTop: isMobile? "2.5vw": "1.5vw", display: "flex", alignItems: "center", justifyContent: "center"}}>
         <Link to='/add' style =  {{backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: isMobile? "3vw": "1.5vw", fontWeight: "bold", padding: isMobile? "2.5vw 15vw": "0.8vw 8vw", 
-          border: "none"}} >Add Property</Link>
+          border: "none",  textDecoration: "none",  color: "black"}} >Add Property</Link>
         </div>
        </Container>
       </div>
