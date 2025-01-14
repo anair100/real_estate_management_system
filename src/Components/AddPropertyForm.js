@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container, Row, Col, Image } from "react-bootstrap";
 import home_image from '../resources/home_image.webp';
@@ -6,6 +6,30 @@ import api from './api';
 
 
 const AddPropertyForm = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+  useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+  };
+  window.addEventListener("resize", handleResize);
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  }},[]);
+  const radioButtons = document.querySelectorAll('input[type="radio"]');
+  radioButtons.forEach((radio) => {
+    radio.addEventListener('change', () => {
+      radioButtons.forEach((btn) => {
+        btn.style.backgroundColor = ''; // Reset background
+        btn.style.borderColor = '#black';
+      });
+
+      if (radio.checked) {
+        radio.style.backgroundColor = '#007BFF'; // Highlight background
+        radio.style.borderColor = '#black'; // Darker border
+      }
+    });
+  });
+
   console.log('Inside AddPropertyForm');
   const [formData, setFormData] = useState({
     type: '',
@@ -18,6 +42,7 @@ const AddPropertyForm = () => {
     googleLocation: '',
     images: null,
     videos: null,
+    rentOrSell: 'Sell'
   });
 
   const handleChange = (e) => {
@@ -73,11 +98,34 @@ for (let [key, value] of data.entries()) {
   };
 
   return (
-   <div>
-    <Container  fluid style={{ backgroundColor: "#96E3E4", padding: "20px" }}>
-          <Image style={{ width: "30%", height: "auto" }} src={home_image} />
-       </Container>
-    <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '10px', maxWidth: '400px', margin: '0 auto' }}>
+    <div style = {{textAlign: "center", maxWidth: "100%", width: "100%", marginBottom: "0", backgroundColor: "#F1F2F2", padding: "0"}}>
+    <div style={{ backgroundColor: isMobile? "#96E3E4": "#96E3E4", padding: "20px" }}>
+       <Image style={{ width: isMobile? "50%": "25%", height: "auto" }} src={home_image} />
+    </div>
+    <Container style={{width: isMobile ? "90%" : "50%", marginTop: "2vh", borderStyle: "hidden", borderRadius: "20px", padding: "0",
+     width: "50%", height: "auto", backgroundColor: "#FAFEFF", marginLeft: "10vw", marginRight: "10vw", position: "relative",
+     marginTop: "3vh"}}>
+    <div style = {{ display: "flex", width: "80%", marginLeft: "2vw", marginBottom: isMobile? "2vw": "1vw", marginTop: "0"}}>
+         <div style={{ fontSize: isMobile? "4vw": "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500"}}>
+            Looking For:</div>
+         <div style={{display: "flex", padding: "0", margin: "0", width: "50%"}}>
+          <label style = {{fontSize: isMobile? "4vw": "2vw", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", fontWeight: "500", 
+           width: "50%", borderWidth: "0.1vw", borderColor: "#ccc",  padding: "0vw", boxSizing: "border-box"}}>
+           <input type="radio" name="rentOrSell" value="Sell"
+            checked={formData.rentOrSell === 'Sell'} onChange={handleChange}
+            style={{ appearance: "none", width: isMobile? "1.5vw": "1vw", height:  isMobile? "1.5vw": "1vw", border: "0.2vw solid black", borderRadius: "50%", 
+              outline: "none", cursor: "pointer",  transition: "background-color 0.3s", borderColor: "0.3s", marginRight: "0.5vw", marginLeft: isMobile? "5vw": "3vw"}}
+           />Sell
+          </label>
+          <label style={{fontSize: isMobile? "4vw": "2vw", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", fontWeight: "500", 
+           width: "50%", borderWidth: "0.1vw", borderColor: "#ccc",  padding: "0vw", boxSizing: "border-box", }}>
+           <input type="radio" name="rentOrSell" value="Rent" checked={formData.rentOrSell === 'Rent'} onChange={handleChange}
+            style={{appearance: "none", width: isMobile? "1.5vw": "1vw", height:  isMobile? "1.5vw": "1vw", border: "0.2vw solid black", borderRadius: "50%", 
+              outline: "none", cursor: "pointer",  transition: "background-color 0.3s", borderColor: "0.3s", marginRight: "0.5vw"}}
+           />Rent
+          </label>
+         </div>
+        </div>
       <input name="type" placeholder="Type" value={formData.type} onChange={handleChange} required />
       <input name="price" placeholder="Price" value={formData.price} onChange={handleChange} required />
       <input name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
@@ -89,8 +137,8 @@ for (let [key, value] of data.entries()) {
       <input type="file" name="images" multiple onChange={handleChange} />
       <label>Videos:</label>
       <input type="file" name="videos" multiple onChange={handleChange} />
-      <button type="submit">Add Property</button>
-    </form>
+      <button onSubmit={handleSubmit} type="submit">Add Property</button>
+    </Container>
     </div>
   );
 };
