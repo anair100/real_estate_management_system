@@ -415,7 +415,7 @@ function Home() {
           }}>Budget: </div>
           <div className="slider-container">
             <div className="slider-track"></div>
-            <div className="slider-highlight" style={{ left: `${((minValue - 0) / 99) * 100}%`,  width: `${((maxValue - minValue) / 99) * 100}%`}}></div>
+            <div className="slider-highlight" style={{ left: `${((minValue - 1) / 99) * 100}%`,  width: `${((maxValue - minValue) / 98) * 100}%`}}></div>
             <input type="range" min="1" max="99" value={minValue} onChange={handleMinChange} className="slider-thumb slider-thumb-left" />
             <input type="range" min="1" max="99" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right" />
           </div>
@@ -454,7 +454,7 @@ function Home() {
           }}>Size: </div>
           <div className="slider-container">
             <div className="slider-track"></div>
-            <div className="slider-highlight" style={{ left: `${(minSize / 5000) * 100}%`, width: `${((maxSize - minSize) / 5000) * 100}%`}}></div>
+            <div className="slider-highlight" style={{ left: `${((minSize - 100) / 5000) * 100}%`, width: `${((maxSize - minSize) / 4900) * 100}%`}}></div>
             <input type="range" min="100" max="5000" value={minSize} onChange={handleMinSizeChange} className="slider-thumb slider-thumb-left" />
             <input type="range" min="100" max="5000" value={maxSize} onChange={handleMaxSizeChange} className="slider-thumb slider-thumb-right" />
           </div>
