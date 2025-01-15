@@ -10,6 +10,8 @@ const SearchResult = () => {
   const [searchParams] = useSearchParams();
   console.log("searchParams")
 
+
+
   useEffect(() => {
     console.log('Inside fetchProperties')
     const fetchProperties = async () => {
@@ -59,6 +61,16 @@ const SearchResult = () => {
     };
     fetchProperties();
   }, [searchParams]);
+
+  const handlemodify= ()=>{
+
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
 
   return (
     <div style = {{backgroundColor: "#F1F2F2"}}>
