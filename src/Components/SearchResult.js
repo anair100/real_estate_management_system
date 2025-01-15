@@ -7,13 +7,12 @@ import home_image from '../resources/home_image.webp';
 const SearchResult = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [properties, setProperties] = useState([]);
-  const [searchParams] = useSearchParams();
-  console.log("searchParams")
-
+  const [searchParams,setSearchParams] = useSearchParams();
+  const[ modifiedSearchParams,setModifiedSearchParams] = useState(searchParams);
 
 
   useEffect(() => {
-    console.log('Inside fetchProperties')
+    console.log('Inside fetchProperties: searchParams:',searchParams)
     const fetchProperties = async () => {
       try {
         
@@ -63,26 +62,27 @@ const SearchResult = () => {
   }, [searchParams]);
 
   const handlemodify= ()=>{
-
+    console.log('in handlemodify modifiedSearchParams:',modifiedSearchParams);
+    setSearchParams(modifiedSearchParams) ;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setModifiedSearchParams({ ...modifiedSearchParams, [name]: value });
   };
 
 
   return (
     <div style = {{backgroundColor: "#F1F2F2"}}>
       <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: "0.5vw 0.5vw"}}>
-       <select style={{ marginLeft: "1vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+       <select onChange={handleChange} style={{ marginLeft: "1vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
         <option value="" disabled selected>
           Looking to
         </option>
         <option value="Sell">Buy</option>
         <option value="Rent">Rent</option>
        </select>
-       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+       <select onChange={handleChange} style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
         <option value="" disabled selected>
           Property Type
         </option>
@@ -109,7 +109,7 @@ const SearchResult = () => {
         <option value="Plot">Flat</option>
         <option value="Land">Land</option>
        </select>
-       <button style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
+       <button onClick={handlemodify}  style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
         padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: "1.5vw", float: "right"}}>Modify Search</button>
       </div>
 
