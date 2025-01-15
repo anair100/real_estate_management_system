@@ -24,8 +24,8 @@ function Home() {
     };
   }, []);
 
-  const [minValue, setMinValue] = useState(1); // Set initial value within the range 0-99
-  const [maxValue, setMaxValue] = useState(99); // Set initial value within the range 0-99
+  const [minValue, setMinValue] = useState(1);
+  const [maxValue, setMaxValue] = useState(99);
 
   const handleMinChange = (e) => {
     const value = Math.min(Number(e.target.value), maxValue - 1);
@@ -82,8 +82,8 @@ function Home() {
     maxSize: 10000,
     type: 'House',
     rentOrSell: 'Sell',
-    budgetType: '',
-    sizeType: '',
+    budgetType: 'Lakh',
+    sizeType: 'Square Feet',
   });
 
   const radioButtons = document.querySelectorAll('input[type="radio"]');
@@ -379,7 +379,7 @@ function Home() {
             min="1"
             max="99"
           />
-          <select name="budgetType" onChange = {handleChange} style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
+          <select name="budgetType" defaultValue="Lakh" onChange = {handleChange} style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
            <option value="Lakh">Lakh</option>
            <option value="Thousand">Thousand</option>
            <option value="Crore">Crore</option>
@@ -418,7 +418,8 @@ function Home() {
             min="100"
             max="10000"
           />
-          <select name = "sizeType" onChange = {handleChange} style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
+          <select name = "sizeType" defaultValue="Square Feet" onChange = {handleChange} 
+           style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
            <option value="Square Feet">Square Feet</option>
            <option value="Acre">Acre</option>
            <option value="Hector">Hector</option>
