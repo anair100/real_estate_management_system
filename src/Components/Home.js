@@ -8,8 +8,6 @@ import { useNavigate } from 'react-router';
 
 
 function Home() {
-  const [minValue, setMinValue] = useState(50);
-  const [maxValue, setMaxValue] = useState(150);
   const [locations, setLocations] = useState([]);
   const inputRef = useRef(null); // Proper declaration of inputRef
 
@@ -25,14 +23,66 @@ function Home() {
     };
   }, []);
 
+  const [minValue, setMinValue] = useState(1); // Set initial value within the range 0-99
+  const [maxValue, setMaxValue] = useState(99); // Set initial value within the range 0-99
+
+  const handleMinChange = (e) => {
+    const value = Math.min(Number(e.target.value), maxValue - 1);
+    setMinValue(value);
+    setFormData((prev) => ({
+      ...prev,
+      priceMin: value,
+    }));
+  };
+
+  const handleMaxChange = (e) => {
+    const value = Math.max(Number(e.target.value), minValue + 1);
+    setMaxValue(value);
+    setFormData((prev) => ({
+      ...prev,
+      priceMax: value,
+    }));
+  };
+
+  const handleMinInputChange = (e) => {
+    const value = Math.min(Number(e.target.value), maxValue - 1);
+  };
+
+  const handleMaxInputChange = (e) => {
+    const value = Math.max(Number(e.target.value), minValue + 1);
+  };
+
+  const [minSize, setMinSize] = useState(100); // Set initial value within the range 0-99
+  const [maxSize, setMaxSize] = useState(10000); // Set initial value within the range 0-99
+
+  const handleMinSizeChange = (e) => {
+    const value = Math.min(Number(e.target.value), maxSize - 1);
+    setMinSize(value);
+    setFormData((prev) => ({
+      ...prev,
+      minSize: value,
+    }));
+  };
+
+  const handleMaxSizeChange = (e) => {
+    const value = Math.max(Number(e.target.value), minSize + 1);
+    setMaxSize(value);
+    setFormData((prev) => ({
+      ...prev,
+      maxSize: value,
+    }));
+  };
+
   const [formData, setFormData] = useState({
     location: '',
-    priceMin: minValue,
-    priceMax: maxValue,
-    minSize: 0,
-    maxSize: 100,
+    priceMin: 0,
+    priceMax: 99,
+    minSize: 100,
+    maxSize: 10000,
     type: 'House',
     rentOrSell: 'Sell',
+    budgetType: '',
+    sizeType: '',
   });
 
   const radioButtons = document.querySelectorAll('input[type="radio"]');
@@ -112,26 +162,6 @@ function Home() {
         </div>
       ))}</div>)
   }
-
-  const handleMinChange = (e) => {
-    const value = Math.min(Number(e.target.value), maxValue - 1);
-    setMinValue(value);
-  };
-
-  const handleMaxChange = (e) => {
-    const value = Math.max(Number(e.target.value), minValue + 1);
-    setMaxValue(value);
-  };
-
-  const handleMinInputChange = (e) => {
-    const value = Math.min(Number(e.target.value), maxValue - 1);
-    if (!isNaN(value) && value >= 5) setMinValue(value);
-  };
-
-  const handleMaxInputChange = (e) => {
-    const value = Math.max(Number(e.target.value), minValue + 1);
-    if (!isNaN(value) && value <= 200) setMaxValue(value);
-  };
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -308,70 +338,82 @@ function Home() {
           {formData.rentOrSell === 'Rent' && renderTypesForRent()}
         </div>
 
-        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "1vw" : "0.3vw" }}>
+        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "1vw" : "1vw" }}>
           <div style={{
             fontSize: isMobile ? "4vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
             marginRight: isMobile ? "2vw" : "1.4vw"
           }}>Budget: </div>
           <div className="slider-container">
             <div className="slider-track"></div>
-            <div className="slider-highlight" style={{ left: `${((minValue - 5) / 195) * 100}%`, width: `${((maxValue - minValue) / 195) * 100}%` }}></div>
-            <input type="range" min="5" max="200" value={minValue} onChange={handleMinChange} className="slider-thumb slider-thumb-left" />
-            <input type="range" min="5" max="200" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right" />
+            <div className="slider-highlight" style={{ left: `${((minValue - 0) / 99) * 100}%`,  width: `${((maxValue - minValue) / 99) * 100}%`}}></div>
+            <input type="range" min="1" max="99" value={minValue} onChange={handleMinChange} className="slider-thumb slider-thumb-left" />
+            <input type="range" min="1" max="99" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right" />
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "11.5vw", width: "50%", padding: "0", marginTop: "0", marginBottom: isMobile ? "4vw" : "1vw" }}>
-          <label style={{ fontSize: isMobile ? "3vw" : "1.5vw" }}>Min: </label>
-          <input style={{ width: "25%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.5vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "11.5vw", width: "75%", padding: "0", marginTop: "0", 
+          marginBottom: isMobile ? "4vw" : "1vw"}}>
+          <label style={{ fontSize: isMobile ? "3vw" : "1.2vw" }}>Min: </label>
+          <input style={{ width: "10%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="min-input"
             type="number"
             value={minValue}
             onChange={handleMinInputChange}
-            min="5"
-            max={maxValue - 1}
+            min="1"
+            max="99"
           />
-          <label style={{ fontSize: isMobile ? "3vw" : "1.5vw", marginLeft: isMobile ? "6vw" : "2vw" }}>Max: </label>
-          <input style={{ width: "25%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.5vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+          <label style={{ fontSize: isMobile ? "3vw" : "1.2vw", marginLeft: isMobile ? "6vw" : "1.5vw" }}>Max: </label>
+          <input style={{ width: "10%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="max-input"
             type="number"
             value={maxValue}
             onChange={handleMaxInputChange}
-            min={minValue + 1}
-            max="200"
+            min="1"
+            max="99"
           />
+          <select name="budgetType" onChange = {handleChange} style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
+           <option value="Lakh">Lakh</option>
+           <option value="Thousand">Thousand</option>
+           <option value="Crore">Crore</option>
+          </select>
         </div>
 
-        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "1vw" : "0.5vw" }}>
+        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "1vw" : "1vw" }}>
           <div style={{
             fontSize: isMobile ? "4vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
             marginRight: isMobile ? "2vw" : "1.4vw"
           }}>Size: </div>
           <div className="slider-container">
             <div className="slider-track"></div>
-            <div className="slider-highlight" style={{ left: `${((minValue - 5) / 195) * 100}%`, width: `${((maxValue - minValue) / 195) * 100}%` }}></div>
-            <input type="range" min="5" max="200" value={minValue} onChange={handleMinChange} className="slider-thumb slider-thumb-left" />
-            <input type="range" min="5" max="200" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right" />
+            <div className="slider-highlight" style={{ left: `${(minSize / 10000) * 100}%`, width: `${((maxSize - minSize) / 10000) * 100}%`}}></div>
+            <input type="range" min="100" max="10000" value={minSize} onChange={handleMinSizeChange} className="slider-thumb slider-thumb-left" />
+            <input type="range" min="100" max="10000" value={maxSize} onChange={handleMaxSizeChange} className="slider-thumb slider-thumb-right" />
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "11.3vw", width: "50%", padding: "0", marginTop: "0", marginBottom: "0" }}>
-          <label style={{ fontSize: isMobile ? "3vw" : "1.5vw" }}>Min: </label>
-          <input style={{ width: "25%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.5vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "8.5vw", width: "75%", padding: "0", marginTop: "0", 
+          marginBottom: "0"}}>
+          <label style={{ fontSize: isMobile ? "3vw" : "1.2vw" }}>Min: </label>
+          <input style={{ width: "20%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="min-input"
             type="number"
-            value={minValue}
+            value={minSize}
             onChange={handleMinInputChange}
-            min="5"
-            max={maxValue - 1}
+            min="100"
+            max="10000"
           />
-          <label style={{ fontSize: isMobile ? "3vw" : "1.5vw", marginLeft: isMobile ? "6vw" : "2vw" }}>Max: </label>
-          <input style={{ width: "25%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.5vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+          <label style={{ fontSize: isMobile ? "3vw" : "1.2vw", marginLeft: isMobile ? "6vw" : "1.5vw" }}>Max: </label>
+          <input style={{ width: "20%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="max-input"
             type="number"
-            value={maxValue}
+            value={maxSize}
             onChange={handleMaxInputChange}
-            min={minValue + 1}
-            max="200"
+            min="100"
+            max="10000"
           />
+          <select name = "sizeType" onChange = {handleChange} style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
+           <option value="Square Feet">Square Feet</option>
+           <option value="Acre">Acre</option>
+           <option value="Hector">Hector</option>
+          </select>
         </div>
 
         <div style={{ marginTop: isMobile ? "6vw" : "4vw", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0vw", padding: "0" }}>
