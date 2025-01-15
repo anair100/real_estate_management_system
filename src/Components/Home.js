@@ -246,13 +246,12 @@ function Home() {
           width: "100%", margin: "auto", marginBottom: isMobile ? "2.5vw" : "1.2vw", padding: "0vw"
         }}>
           Find Your Dream Home!</h1>
-        <div>
+        <div  ref={inputRef}>
           <div>
             <input
               type="text"
               name="location"
-              placeholder="Enter Location"
-              ref={inputRef}
+              placeholder="Enter Location"          
               value={formData.location}
               onChange={handleChange}
               onFocus={() => setFocused(true)} // Show suggestions when focused
