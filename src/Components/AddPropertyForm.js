@@ -70,7 +70,7 @@ const AddPropertyForm = () => {
         }
       }
     }
-    data.append('key1','value1');
+    // data.append('key1','value1');
     console.log("Inspecting formData:" ,formData);
     console.log("Inspecting data:" ,data);
 for (let [key, value] of data.entries()) {
