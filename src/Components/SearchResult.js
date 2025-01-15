@@ -8,11 +8,12 @@ const SearchResult = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [properties, setProperties] = useState([]);
   const [searchParams,setSearchParams] = useSearchParams();
-  const[ modifiedSearchParams,setModifiedSearchParams] = useState(searchParams);
-
+  const paramsObject = Object.fromEntries(searchParams.entries());
+  const[ modifiedSearchParams,setModifiedSearchParams] = useState(paramsObject);
+  console.log(' modifiedSearchParams: searchParams:',modifiedSearchParams)
 
   useEffect(() => {
-    console.log('Inside fetchProperties: searchParams:',searchParams)
+    console.log('Inside fetchProperties: searchParams:',searchParams);
     const fetchProperties = async () => {
       try {
         
@@ -69,20 +70,21 @@ const SearchResult = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setModifiedSearchParams({ ...modifiedSearchParams, [name]: value });
+    console.log('in handleChange modifiedSearchParams: searchParams:',modifiedSearchParams)
   };
 
 
   return (
     <div style = {{backgroundColor: "#F1F2F2"}}>
       <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: "0.5vw 0.5vw"}}>
-       <select onChange={handleChange} style={{ marginLeft: "1vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+       <select name="rentOrSell" onChange={handleChange} style={{ marginLeft: "1vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
         <option value="" disabled selected>
           Looking to
         </option>
         <option value="Sell">Buy</option>
         <option value="Rent">Rent</option>
        </select>
-       <select onChange={handleChange} style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+       <select name='type' onChange={handleChange} style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
         <option value="" disabled selected>
           Property Type
         </option>
