@@ -9,10 +9,19 @@ import { useNavigate } from 'react-router';
 
 function Home() {
   const [locations, setLocations] = useState([]);
-  const inputRef = useRef(null); // Proper declaration of inputRef
-  const [focused, setFocused] = useState(false); // Track focus state
-
+  const inputRef = useRef(null);
+  const [focused, setFocused] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+  const [formData, setFormData] = useState({
+    location: '',
+    priceMin: 100000,
+    priceMax: 9900000,
+    minSize: 100,
+    maxSize: 5000,
+    type: 'House',
+    rentOrSell: 'Sell',
+  });
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -23,68 +32,6 @@ function Home() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const [minValue, setMinValue] = useState(1);
-  const [maxValue, setMaxValue] = useState(99);
-
-  const handleMinChange = (e) => {
-    const value = Math.min(Number(e.target.value), maxValue - 1);
-    setMinValue(value);
-    setFormData((prev) => ({
-      ...prev,
-      priceMin: value,
-    }));
-  };
-
-  const handleMaxChange = (e) => {
-    const value = Math.max(Number(e.target.value), minValue + 1);
-    setMaxValue(value);
-    setFormData((prev) => ({
-      ...prev,
-      priceMax: value,
-    }));
-  };
-
-  const handleMinInputChange = (e) => {
-    const value = Math.min(Number(e.target.value), maxValue - 1);
-  };
-
-  const handleMaxInputChange = (e) => {
-    const value = Math.max(Number(e.target.value), minValue + 1);
-  };
-
-  const [minSize, setMinSize] = useState(100); // Set initial value within the range 0-99
-  const [maxSize, setMaxSize] = useState(10000); // Set initial value within the range 0-99
-
-  const handleMinSizeChange = (e) => {
-    const value = Math.min(Number(e.target.value), maxSize - 1);
-    setMinSize(value);
-    setFormData((prev) => ({
-      ...prev,
-      minSize: value,
-    }));
-  };
-
-  const handleMaxSizeChange = (e) => {
-    const value = Math.max(Number(e.target.value), minSize + 1);
-    setMaxSize(value);
-    setFormData((prev) => ({
-      ...prev,
-      maxSize: value,
-    }));
-  };
-
-  const [formData, setFormData] = useState({
-    location: '',
-    priceMin: 0,
-    priceMax: 99,
-    minSize: 100,
-    maxSize: 10000,
-    type: 'House',
-    rentOrSell: 'Sell',
-    budgetType: 'Lakh',
-    sizeType: 'Square Feet',
-  });
 
   const radioButtons = document.querySelectorAll('input[type="radio"]');
   radioButtons.forEach((radio) => {
@@ -163,6 +110,121 @@ function Home() {
         </div>
       ))}</div>)
   }
+
+  const [minValue, setMinValue] = useState(1);
+  const [maxValue, setMaxValue] = useState(99);
+  const [minSize, setMinSize] = useState(100);
+  const [maxSize, setMaxSize] = useState(5000);
+  const [budgetType, setBudgetType] = useState('Lakh');
+  const [sizeType, setSizeType] = useState('Square Feet'); 
+  
+  const handleBudgetTypeChange = (e) => {
+    var minimumBudget = minValue;
+    var maximumBudget = maxValue;
+    setBudgetType(e.target.value);
+    if(e.target.value == 'Lakh'){
+      minimumBudget = minimumBudget*100000;
+      maximumBudget = maximumBudget*100000;
+    } else if(e.target.value == 'Thousand'){
+      minimumBudget = minimumBudget*1000;
+      maximumBudget = maximumBudget*1000;
+    } else if(e.target.value = 'Crore'){
+      minimumBudget = minimumBudget*10000000;
+      maximumBudget = maximumBudget*10000000;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      priceMin: minimumBudget,
+      priceMax: maximumBudget
+    }));
+  };
+
+  const handleSizeTypeChange = (e) => {
+    var minimumSize = minSize;
+    var maximumSize = maxSize;
+    setSizeType(e.target.value);
+    if(e.target.value == 'Acre'){
+      minimumSize = minimumSize*43560;
+      maximumSize = maximumSize*43560;
+    } else if(e.target.value = 'Bigha'){
+      minimumSize = minimumSize*12000;
+      maximumSize = maximumSize*12000;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      maxSize: minimumSize,
+      minSize: maximumSize
+    }));
+  };
+
+  const handleMinChange = (e) => {
+    var value = Math.min(Number(e.target.value), maxValue - 1);
+    console.log('Budget Type: ' + budgetType);
+    setMinValue(value);
+    if(budgetType == 'Lakh'){
+      value = value*100000;
+    } else if(budgetType == 'Thousand'){
+      value = value*1000;
+    } else if(value = 'Crore'){
+      value = value*10000000;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      priceMin: value,
+    }));
+  };
+
+  const handleMaxChange = (e) => {
+    var value = Math.max(Number(e.target.value), minValue + 1);
+    setMaxValue(value);
+    if(budgetType == 'Lakh'){
+      value = value*100000;
+    } else if(budgetType == 'Thousand'){
+      value = value*1000;
+    } else if(value = 'Crore'){
+      value = value*10000000;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      priceMax: value,
+    }));
+  };
+
+  const handleMinSizeChange = (e) => {
+    const value = Math.min(Number(e.target.value), maxSize - 1);
+    setMinSize(value);
+    if(budgetType == 'Acre'){
+      value = value*43560;
+    } else if(budgetType == 'Bigha'){
+      value = value*12000;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      minSize: value,
+    }));
+  };
+
+  const handleMaxSizeChange = (e) => {
+    const value = Math.max(Number(e.target.value), minSize + 1);
+    setMaxSize(value);
+    if(budgetType == 'Acre'){
+      value = value*43560;
+    } else if(budgetType == 'Bigha'){
+      value = value*12000;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      maxSize: value,
+    }));
+  };
+
+  const handleMinInputChange = (e) => {
+    const value = Math.min(Number(e.target.value), maxValue - 1);
+  };
+
+  const handleMaxInputChange = (e) => {
+    const value = Math.max(Number(e.target.value), minValue + 1);
+  };
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -378,7 +440,7 @@ function Home() {
             min="1"
             max="99"
           />
-          <select name="budgetType" defaultValue="Lakh" onChange = {handleChange} style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
+          <select name="budgetType" defaultValue="Lakh" onChange = {handleBudgetTypeChange} style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
            <option value="Lakh">Lakh</option>
            <option value="Thousand">Thousand</option>
            <option value="Crore">Crore</option>
@@ -392,9 +454,9 @@ function Home() {
           }}>Size: </div>
           <div className="slider-container">
             <div className="slider-track"></div>
-            <div className="slider-highlight" style={{ left: `${(minSize / 10000) * 100}%`, width: `${((maxSize - minSize) / 10000) * 100}%`}}></div>
-            <input type="range" min="100" max="10000" value={minSize} onChange={handleMinSizeChange} className="slider-thumb slider-thumb-left" />
-            <input type="range" min="100" max="10000" value={maxSize} onChange={handleMaxSizeChange} className="slider-thumb slider-thumb-right" />
+            <div className="slider-highlight" style={{ left: `${(minSize / 5000) * 100}%`, width: `${((maxSize - minSize) / 5000) * 100}%`}}></div>
+            <input type="range" min="100" max="5000" value={minSize} onChange={handleMinSizeChange} className="slider-thumb slider-thumb-left" />
+            <input type="range" min="100" max="5000" value={maxSize} onChange={handleMaxSizeChange} className="slider-thumb slider-thumb-right" />
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "8.5vw", width: "75%", padding: "0", marginTop: "0", 
@@ -406,7 +468,7 @@ function Home() {
             value={minSize}
             onChange={handleMinInputChange}
             min="100"
-            max="10000"
+            max="5000"
           />
           <label style={{ fontSize: isMobile ? "3vw" : "1.2vw", marginLeft: isMobile ? "6vw" : "1.5vw" }}>Max: </label>
           <input style={{ width: "20%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
@@ -415,13 +477,13 @@ function Home() {
             value={maxSize}
             onChange={handleMaxInputChange}
             min="100"
-            max="10000"
+            max="5000"
           />
-          <select name = "sizeType" defaultValue="Square Feet" onChange = {handleChange} 
+          <select name = "sizeType" defaultValue="Square Feet" onChange = {handleSizeTypeChange}
            style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
            <option value="Square Feet">Square Feet</option>
            <option value="Acre">Acre</option>
-           <option value="Hector">Hector</option>
+           <option value="Bigha">Bigha</option>
           </select>
         </div>
 
