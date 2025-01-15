@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router';
 function Home() {
   const [locations, setLocations] = useState([]);
   const inputRef = useRef(null); // Proper declaration of inputRef
+  const [focused, setFocused] = useState(false); // Track focus state
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   useEffect(() => {
@@ -178,7 +179,7 @@ function Home() {
 
   const fetchSuggestions = async (query) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/properties/address?query=${encodeURIComponent(query)}`);
+      const response = await fetch(`http://localhost:8080/api/properties/address?location=${encodeURIComponent(query)}`);
       if (!response.ok) throw new Error('Failed to fetch suggestions');
       const data = await response.json();
 
@@ -191,10 +192,15 @@ function Home() {
     }
   };
   function useDebounce(value, delay) {
+    console.log('inside useDebounce');
     const [debouncedValue, setDebouncedValue] = useState(value);
 
     useEffect(() => {
-      const handler = setTimeout(() => setDebouncedValue(value), delay);
+      console.log('inside useEffect with value', value);
+      const handler = setTimeout(() => {
+        console.log('inside setTimeout with value', value);
+        setDebouncedValue(value)
+      }, delay);
       return () => clearTimeout(handler);
     }, [value, delay]);
 
@@ -202,20 +208,23 @@ function Home() {
   }
 
   // In your component:
-  const debouncedQuery = useDebounce(formData.location, 300);
+  
+  const debouncedQuery = useDebounce(formData.location, 500);
   useEffect(() => {
     // if (debouncedQuery.trim() !== '') {
-    fetchSuggestions(debouncedQuery);
+    if (focused) {
+      fetchSuggestions(debouncedQuery);
+    }
     // }
   }, [debouncedQuery]);
 
   // Handle outside click to set suggetion [] or to remove suggetion box
   useEffect(() => {
-    console.log("Inside effect to clear sugetion");
+    // console.log("Inside effect to clear sugetion");
     const handleClickOutside = (event) => {
-      console.log("Inside handleClickOutside:",inputRef.current,event.target);
+      // console.log("Inside handleClickOutside:",inputRef.current,event.target);
       if (inputRef.current && !inputRef.current.contains(event.target)) {
-        console.log("Inside handleClickOutside");
+        // console.log("Inside handleClickOutside");
         setLocations([]); // Clear suggestions if clicked outside
       }
     };
@@ -246,6 +255,7 @@ function Home() {
               ref={inputRef}
               value={formData.location}
               onChange={handleChange}
+              onFocus={() => setFocused(true)} // Show suggestions when focused
               style={{
                 backgroundColor: '#F1F2F2',
                 marginTop: '0',
@@ -264,18 +274,18 @@ function Home() {
                 top: '25%', // Place it below the input
                 left: '25%',
                 width: '40%',
-                backgroundColor:'#fff' , // Transparent background
+                backgroundColor: '#fff', // Transparent background
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                 padding: '0',
                 border: '1px solid #ccc',
-                borderTop:'none',
+                borderTop: 'none',
                 margin: '0',
-              //  listStyle: 'none',
+                //  listStyle: 'none',
                 zIndex: 1000,
                 borderRadius: '0.5vw',
                 maxHeight: '10vw', // Limit height to make it scrollable
                 overflowY: 'auto', // Enable scrolling
-              //  backdropFilter: 'blur(10px)', // Optional: add a blur effect
+                //  backdropFilter: 'blur(10px)', // Optional: add a blur effect
               }}>
                 {locations.map((suggestion, index) => (
                   <li
@@ -283,8 +293,8 @@ function Home() {
                     style={{
                       padding: '0.5vw 1vw',
                       cursor: 'pointer',
-                     // borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-                     backgroundColor: 'white',
+                      // borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+                      backgroundColor: 'white',
                     }}
 
                     onClick={() => {
@@ -293,7 +303,6 @@ function Home() {
                     }
                     }
                   >
-                    {console.log("suggestions" + suggestion.location)}
                     {suggestion.location}
                   </li>
                 ))}
