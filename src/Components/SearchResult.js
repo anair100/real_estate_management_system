@@ -8,15 +8,21 @@ const SearchResult = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [properties, setProperties] = useState([]);
   const [searchParams] = useSearchParams();
+  const [modifySearchParams, setModifySearchParams] = useState({
+      location: '',
+      priceMin: 100000,
+      priceMax: 9900000,
+      minSize: 100,
+      maxSize: 5000,
+      type: '',
+      rentOrSell: '',
+    });
   console.log("searchParams")
-
-
 
   useEffect(() => {
     console.log('Inside fetchProperties')
     const fetchProperties = async () => {
       try {
-        
         console.log('inside fetchProperties')
         const query = searchParams.toString();
         //const response = await fetch(`http://localhost:8080/api/properties/search?${searchParams}`, {
@@ -25,13 +31,11 @@ const SearchResult = () => {
         //     'Content-Type': 'application/json'
         //   }
         // })
-
         const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
         console.log(response.data);
         setProperties(response.data);
 
         console.log(properties);
-
       } catch (error) {
         console.error('Error fetching properties:', error);
         setProperties([{
@@ -62,27 +66,26 @@ const SearchResult = () => {
     fetchProperties();
   }, [searchParams]);
 
-  const handlemodify= ()=>{
+  const handleModify= ()=>{
 
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setModifySearchParams({ ...modifySearchParams, [name]: value });
   };
-
 
   return (
     <div style = {{backgroundColor: "#F1F2F2"}}>
       <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: "0.5vw 0.5vw"}}>
-       <select style={{ marginLeft: "1vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+       <select name = "rentOrSell" style={{ marginLeft: "1vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
         <option value="" disabled selected>
           Looking to
         </option>
         <option value="Sell">Buy</option>
         <option value="Rent">Rent</option>
        </select>
-       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+       <select name = "type" style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
         <option value="" disabled selected>
           Property Type
         </option>
