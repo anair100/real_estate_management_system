@@ -16,7 +16,6 @@ const SearchResult = () => {
     console.log('Inside fetchProperties: searchParams:',searchParams);
     const fetchProperties = async () => {
       try {
-        
         console.log('inside fetchProperties')
         const query = searchParams.toString();
         //const response = await fetch(`http://localhost:8080/api/properties/search?${searchParams}`, {
@@ -25,13 +24,11 @@ const SearchResult = () => {
         //     'Content-Type': 'application/json'
         //   }
         // })
-
         const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
         console.log(response.data);
         setProperties(response.data);
 
         console.log(properties);
-
       } catch (error) {
         console.error('Error fetching properties:', error);
         setProperties([{
@@ -73,7 +70,6 @@ const SearchResult = () => {
     console.log('in handleChange modifiedSearchParams: searchParams:',modifiedSearchParams)
   };
 
-
   return (
     <div style = {{backgroundColor: "#F1F2F2"}}>
       <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: "0.5vw 0.5vw"}}>
@@ -85,6 +81,7 @@ const SearchResult = () => {
         <option value="Rent">Rent</option>
        </select>
        <select name='type' onChange={handleChange} style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+
         <option value="" disabled selected>
           Property Type
         </option>

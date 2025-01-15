@@ -152,8 +152,8 @@ function Home() {
     }
     setFormData((prev) => ({
       ...prev,
-      maxSize: minimumSize,
-      minSize: maximumSize
+      minSize: minimumSize,
+      maxSize: maximumSize
     }));
   };
 
@@ -191,11 +191,11 @@ function Home() {
   };
 
   const handleMinSizeChange = (e) => {
-    const value = Math.min(Number(e.target.value), maxSize - 1);
+    var value = Math.min(Number(e.target.value), maxSize - 1);
     setMinSize(value);
-    if(budgetType == 'Acre'){
+    if(sizeType == 'Acre'){
       value = value*43560;
-    } else if(budgetType == 'Bigha'){
+    } else if(sizeType == 'Bigha'){
       value = value*12000;
     }
     setFormData((prev) => ({
@@ -205,11 +205,11 @@ function Home() {
   };
 
   const handleMaxSizeChange = (e) => {
-    const value = Math.max(Number(e.target.value), minSize + 1);
+    var value = Math.max(Number(e.target.value), minSize + 1);
     setMaxSize(value);
-    if(budgetType == 'Acre'){
+    if(sizeType == 'Acre'){
       value = value*43560;
-    } else if(budgetType == 'Bigha'){
+    } else if(sizeType == 'Bigha'){
       value = value*12000;
     }
     setFormData((prev) => ({
