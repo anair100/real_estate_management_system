@@ -423,7 +423,7 @@ function Home() {
         <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "11.5vw", width: "75%", padding: "0", marginTop: "0", 
           marginBottom: isMobile ? "4vw" : "1vw"}}>
           <label style={{ fontSize: isMobile ? "3vw" : "1.2vw" }}>Min: </label>
-          <input style={{ width: "10%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+          <input style={{ width: "15%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="min-input"
             type="number"
             value={minValue}
@@ -432,7 +432,7 @@ function Home() {
             max="99"
           />
           <label style={{ fontSize: isMobile ? "3vw" : "1.2vw", marginLeft: isMobile ? "6vw" : "1.5vw" }}>Max: </label>
-          <input style={{ width: "10%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+          <input style={{ width: "15%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="max-input"
             type="number"
             value={maxValue}
@@ -440,29 +440,28 @@ function Home() {
             min="1"
             max="99"
           />
-          <select name="budgetType" defaultValue="Lakh" onChange = {handleBudgetTypeChange} style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
+          <select name="budgetType" defaultValue="Lakh" onChange = {handleBudgetTypeChange} style={{marginLeft: "1.5vw", padding: "0.3vw", 
+            borderRadius: "0.5vw", borderStyle: "ridge", fontSize: isMobile? "3vw": "1.2vw", borderRadius: "5vw", width: "25%"}}>
            <option value="Lakh">Lakh</option>
            <option value="Thousand">Thousand</option>
            <option value="Crore">Crore</option>
           </select>
         </div>
 
-        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "1vw" : "1vw" }}>
-          <div style={{
-            fontSize: isMobile ? "4vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
-            marginRight: isMobile ? "2vw" : "1.4vw"
-          }}>Size: </div>
-          <div className="slider-container">
+        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "1vw" : "1vw"}}>
+          <div style={{fontSize: isMobile ? "4vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
+            marginRight: isMobile ? "2vw" : "1.4vw"}}>Size: </div>
+          <div className="slider-container" style = {{marginLeft: "4vw"}}>
             <div className="slider-track"></div>
             <div className="slider-highlight" style={{ left: `${((minSize - 100) / 5000) * 100}%`, width: `${((maxSize - minSize) / 4900) * 100}%`}}></div>
             <input type="range" min="100" max="5000" value={minSize} onChange={handleMinSizeChange} className="slider-thumb slider-thumb-left" />
             <input type="range" min="100" max="5000" value={maxSize} onChange={handleMaxSizeChange} className="slider-thumb slider-thumb-right" />
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "8.5vw", width: "75%", padding: "0", marginTop: "0", 
+        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "11.5vw", width: "75%", padding: "0", marginTop: "0", 
           marginBottom: "0"}}>
           <label style={{ fontSize: isMobile ? "3vw" : "1.2vw" }}>Min: </label>
-          <input style={{ width: "20%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+          <input style={{ width: "15%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="min-input"
             type="number"
             value={minSize}
@@ -471,7 +470,7 @@ function Home() {
             max="5000"
           />
           <label style={{ fontSize: isMobile ? "3vw" : "1.2vw", marginLeft: isMobile ? "6vw" : "1.5vw" }}>Max: </label>
-          <input style={{ width: "20%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "10px", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+          <input style={{ width: "15%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="max-input"
             type="number"
             value={maxSize}
@@ -480,7 +479,8 @@ function Home() {
             max="5000"
           />
           <select name = "sizeType" defaultValue="Square Feet" onChange = {handleSizeTypeChange}
-           style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "3vw": "1.2vw"}}>
+           style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "ridge", fontSize: isMobile? "3vw": "1.2vw", 
+           borderRadius: "5vw", width: "25%"}}>
            <option value="Square Feet">Square Feet</option>
            <option value="Acre">Acre</option>
            <option value="Bigha">Bigha</option>
