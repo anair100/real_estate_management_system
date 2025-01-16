@@ -81,24 +81,24 @@ const SearchResult = () => {
         <option value="Rent">Rent</option>
        </select>
        <select name='type' onChange={handleChange} style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
-
         <option value="" disabled selected>
           Property Type
         </option>
         <option value="House">House</option>
         <option value="Plot">Plot</option>
-        <option value="Plot">Flat</option>
+        <option value="Flat">Flat</option>
         <option value="Land">Land</option>
        </select>
-       
+       <input type = "number" style = {{marginLeft: "1.5vw", fontSize: "1.5vw", padding: "0.3vw", borderRadius: "5vw", borderStyle: "inset"}} onChange={handleChange} id="priceMin" name="priceMin" placeholder="Min Price (in ₹ Lakhs)"/>
+       <input style = {{marginLeft: "1.5vw", fontSize: "1.5vw", padding: "0.3vw",  borderRadius: "5vw", borderStyle: "inset"}} onChange={handleChange} type="text" id="priceMax" name="priceMax" placeholder="Max Price (in ₹ Lakhs)"   />
        <button onClick={handlemodify}  style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
-        padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: "1.5vw", float: "right"}}>Modify Search</button>
+        padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: "1.5vw", marginLeft: "10vw"}}>Modify Search</button>
       </div>
-
+    
       <div style = {{marginLeft: "17vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
         marginBottom: "1.2vw", width: "80%"}}>
-        <h1 style = {{fontSize: "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw"}}>Showing projects in</h1>
-        <h2 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "2vw"}}>{searchParams.get("location")}</h2>
+        <h1 style = {{fontSize: "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw", textDecoration: "underline"}}>Showing projects in</h1>
+        <h2 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "2vw", textDecoration: "underline"}}>{searchParams.get("location")}</h2>
       </div>
 
       <ul style = {{width: "65%", margin: "auto", position: "relative", height: "auto", padding: "0", display: "block"}}>
@@ -108,25 +108,34 @@ const SearchResult = () => {
          <img style = {{width: "40%", marginRight: "0"}} src={`http://localhost:8080/${property.images[0]}`} alt={`Property`}/>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
           padding: "0", height: "100%", marginRight: "0vw", marginLeft: "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
-          <div style = {{fontSize: "2vw", fontWeight: "700", textDecoration: "underline", padding: "0"}}>
-           {property.size} {property.type} For {property.rentOrSell} In {property.location}
+          <div style = {{fontSize: "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0"}}>
+           {property.type} For {property.rentOrSell} In {property.location}
           </div>
-          <div style = {{fontSize: "2vw", fontWeight: "600", display: "flex", width: "50%", borderStyle: "solid", margin: "auto",
-            justifyContent: "space-between"
-          }}>
-           <div style = {{fontSize: "2vw", fontWeight: "600"}}>
+          <div style = {{fontSize: "2vw", fontWeight: "600", display: "flex", width: "80%",justifyContent: "space-between", 
+          marginTop: "1.5vw", borderStyle: "solid"}}>
+           <div style ={{borderStyle: "solid", width: "50%"}}>
+            <div style = {{fontSize: "1.5vw", fontWeight: "600", borderStyle: "solid"}}>
              Area
+            </div>
+            <div style = {{fontSize: "1.5vw", fontWeight: "600"}}>
+             {property.size} Sq. Ft.
+            </div>
            </div>
-           <div style = {{fontSize: "2vw", fontWeight: "600"}}>
+           <div style ={{borderStyle: "solid"}}>
+            <div style = {{fontSize: "1.5vw", fontWeight: "600"}}>
              Price
+            </div>
+            <div style = {{fontSize: "1.5vw", fontWeight: "600"}}>
+             {property.price}
+            </div>
            </div>
           </div>
-          <div style = {{ display: "flex", maxWidth: "100%", margin: "auto", marginTop: "0.5vw",
-            marginBottom: "0.5vw", width: "70%", justifyContent: "space-between"}}>
-           <a style = {{padding: "1vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
-            fontFamily: "sans-serif", fontSize: "1.5vw", marginRight: "5vw"}} href="tel:9981069233">Contact</a>
-           <a style = {{padding: "1vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
-           fontFamily: "sans-serif", fontSize: "1.5vw", float: "right", marginLeft: "3vw"}} href="https://api.whatsapp.com/send?phone=9981069233">
+          <div style = {{ display: "flex", maxWidth: "100%", marginTop: "3vw",
+            marginBottom: "0.5vw", width: "80%"}}>
+           <a style = {{padding: "1vw 2vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
+            fontFamily: "sans-serif", fontSize: "1.5vw", marginRight: "0vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
+           <a style = {{padding: "1vw 2vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
+           fontFamily: "sans-serif", fontSize: "1.5vw", float: "right", marginLeft: "3vw", borderRadius: '1vw'}} href="https://api.whatsapp.com/send?phone=9981069233">
             WhatsApp
            </a>
           </div> 
