@@ -87,10 +87,10 @@ const SearchResult = () => {
         </option>
         <option value="House">House</option>
         <option value="Plot">Plot</option>
-        <option value="Plot">Flat</option>
+        <option value="Flate">Flat</option>
         <option value="Land">Land</option>
        </select>
-       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
+       {/* <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
         <option value="" disabled selected>
          Size
         </option>
@@ -98,19 +98,16 @@ const SearchResult = () => {
         <option value="Plot">Plot</option>
         <option value="Plot">Flat</option>
         <option value="Land">Land</option>
-       </select>
-       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
-        <option value="" disabled selected>
-         Price
-        </option>
-        <option value="House">House</option>
-        <option value="Plot">Plot</option>
-        <option value="Plot">Flat</option>
-        <option value="Land">Land</option>
-       </select>
+       </select> */}
+       <input onChange={handleChange} type="text" id="priceMin" name="priceMin" placeholder="Min Price (in ₹ Lakhs)"  />
+       <div >
+        <label for="" >Max Price</label>
+        <input onChange={handleChange} type="text" id="priceMax" name="priceMax" placeholder="Max Price (in ₹ Lakhs)"   />
+      </div>
        <button onClick={handlemodify}  style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
         padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: "1.5vw", float: "right"}}>Modify Search</button>
       </div>
+     
 
       <div style = {{marginLeft: "15vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
         marginBottom: "1.2vw", width: "80%"}}>
