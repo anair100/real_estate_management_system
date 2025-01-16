@@ -38,9 +38,9 @@ const AddPropertyForm = () => {
     email: '',
     description: '',
     location: '',
-    size:'',
     googleLocation: '',
     rentOrSell: 'Sell',
+    size:'',
     images: null,
     videos: null
   });
@@ -129,6 +129,7 @@ for (let [key, value] of data.entries()) {
         </div>
       <input name="type" placeholder="Type" value={formData.type} onChange={handleChange} required />
       <input name="price" placeholder="Price" value={formData.price} onChange={handleChange} required />
+      <input name="size" placeholder="Size" value={formData.size} onChange={handleChange} required />
       <input name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
       <input name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
       <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required></textarea>
