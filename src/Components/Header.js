@@ -6,15 +6,15 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Header = () => {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="/home">Property management</Navbar.Brand>
+    <Navbar expand="lg" style = {{backgroundColor : "#5BB4C5"}}>
+      <Container style = {{backgroundColor : "#5BB4C5"}}>
+        <Navbar.Brand href="/home" style = {{fontSize: "1.5vw", fontWeight: "bold"}}>Property management</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="#link">legal consultancy </Nav.Link>
-            <NavDropdown title="Services" id="basic-nav-dropdown">
+            <Nav.Link href="/home" style = {{fontSize: "1.5vw", fontWeight: "400"}}>Home</Nav.Link>
+            <Nav.Link href="#link" style = {{fontSize: "1.5vw", fontWeight: "400"}}>Legal consultancy </Nav.Link>
+            <NavDropdown title="Services" id="basic-nav-dropdown" style = {{fontSize: "1.5vw", fontWeight: "400"}}>
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
@@ -27,7 +27,7 @@ const Header = () => {
             </NavDropdown>
           </Nav>
           <div className="ms-auto">
-        <Nav.Link href="#signup" className="btn btn-primary text-green">
+        <Nav.Link href="#signup" style = {{fontSize: "1.5vw", fontWeight: "400"}}>
           Sign Up
         </Nav.Link>
       </div>
