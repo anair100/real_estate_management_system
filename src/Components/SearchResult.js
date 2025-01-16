@@ -90,58 +90,43 @@ const SearchResult = () => {
         <option value="Plot">Flat</option>
         <option value="Land">Land</option>
        </select>
-       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
-        <option value="" disabled selected>
-         Size
-        </option>
-        <option value="House">House</option>
-        <option value="Plot">Plot</option>
-        <option value="Plot">Flat</option>
-        <option value="Land">Land</option>
-       </select>
-       <select style={{ marginLeft: "1.5vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.5vw"}}>
-        <option value="" disabled selected>
-         Price
-        </option>
-        <option value="House">House</option>
-        <option value="Plot">Plot</option>
-        <option value="Plot">Flat</option>
-        <option value="Land">Land</option>
-       </select>
+       
        <button onClick={handlemodify}  style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
         padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: "1.5vw", float: "right"}}>Modify Search</button>
       </div>
 
-      <div style = {{marginLeft: "15vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
+      <div style = {{marginLeft: "17vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
         marginBottom: "1.2vw", width: "80%"}}>
-        <h1 style = {{fontSize: "1vw", marginTop: "0", padding: "0", marginBottom: "1.5vw"}}>Showing Projects in</h1>
-        <h2 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "1.5vw"}}>{searchParams.get("location")}</h2>
+        <h1 style = {{fontSize: "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw"}}>Showing projects in</h1>
+        <h2 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "2vw"}}>{searchParams.get("location")}</h2>
       </div>
 
-      <ul style = {{width: "70%", margin: "auto", position: "relative", height: "auto", padding: "0", display: "block"}}>
+      <ul style = {{width: "65%", margin: "auto", position: "relative", height: "auto", padding: "0", display: "block"}}>
        {properties.map((property) => (
         <div style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto", backgroundColor: "#FAFEFF", 
-          display: "flex", marginBottom: "1vw", marginTop: "0", padding: "1vw 1vw"}}>               
-         <img style = {{width: "40%"}} src={`http://localhost:8080/${property.images[0]}`} alt={`Property`}/>
+          display: "flex", marginBottom: "2vw", marginTop: "0", padding: "1vw 1vw"}}>               
+         <img style = {{width: "40%", marginRight: "0"}} src={`http://localhost:8080/${property.images[0]}`} alt={`Property`}/>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
-          padding: "0", width: "80%", height: "100%", marginRight: "0vw", marginLeft: "1vw",backgroundColor: "#FAFEFF", width: "50%"}}>  
-          <div style = {{fontSize: "2vw", fontWeight: "700"}}>
+          padding: "0", height: "100%", marginRight: "0vw", marginLeft: "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
+          <div style = {{fontSize: "2vw", fontWeight: "700", textDecoration: "underline", padding: "0"}}>
            {property.size} {property.type} For {property.rentOrSell} In {property.location}
           </div>
-          <div style = {{fontSize: "2vw", fontWeight: "600"}}>
+          <div style = {{fontSize: "2vw", fontWeight: "600", display: "flex", width: "50%", borderStyle: "solid", margin: "auto",
+            justifyContent: "space-between"
+          }}>
            <div style = {{fontSize: "2vw", fontWeight: "600"}}>
-             Area: {property.size}
+             Area
            </div>
            <div style = {{fontSize: "2vw", fontWeight: "600"}}>
-             Price: {property.price}
+             Price
            </div>
           </div>
           <div style = {{ display: "flex", maxWidth: "100%", margin: "auto", marginTop: "0.5vw",
-            marginBottom: "0.5vw", width: "100%", borderStyle: "solid"}}>
-              <a style = {{padding: "1vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
-            fontFamily: "sans-serif", fontSize: "1.5vw", float: "left", marginRight: "5vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
+            marginBottom: "0.5vw", width: "70%", justifyContent: "space-between"}}>
+           <a style = {{padding: "1vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
+            fontFamily: "sans-serif", fontSize: "1.5vw", marginRight: "5vw"}} href="tel:9981069233">Contact</a>
            <a style = {{padding: "1vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
-           fontFamily: "sans-serif", fontSize: "1.5vw", float: "right", marginLeft: "3vw", borderRadius: "1vw"}} href="https://api.whatsapp.com/send?phone=9981069233">
+           fontFamily: "sans-serif", fontSize: "1.5vw", float: "right", marginLeft: "3vw"}} href="https://api.whatsapp.com/send?phone=9981069233">
             WhatsApp
            </a>
           </div> 

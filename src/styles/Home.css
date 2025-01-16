@@ -109,7 +109,7 @@
   }
 
   .slider-thumb::-webkit-slider-thumb {
-    width: 0.8vw;
+    width: 6vw;
     height: 6vw;
   }
 
