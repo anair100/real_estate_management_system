@@ -10,6 +10,7 @@ const SearchResult = () => {
   const [searchParams,setSearchParams] = useSearchParams();
   const paramsObject = Object.fromEntries(searchParams.entries());
   const[ modifiedSearchParams,setModifiedSearchParams] = useState(paramsObject);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   console.log(' modifiedSearchParams: searchParams:',modifiedSearchParams)
 
   useEffect(() => {
@@ -102,9 +103,12 @@ const SearchResult = () => {
       </div>
 
       <ul style = {{width: "80%", marginLeft: "5vw", position: "relative", height: "auto", padding: "0", display: "block"}}>
-       {properties.map((property) => (
-        <div style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto", backgroundColor: "#FAFEFF", 
-          display: "flex", marginBottom: "2vw", marginTop: "0", padding: "1vw 1vw"}}>               
+       {properties.map((property, index) => (
+        <div key={index}  onMouseEnter={() => setHoveredIndex(index)}
+         onMouseLeave={() => setHoveredIndex(null)}style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto",  
+          display: "flex", marginBottom: "2vw", marginTop: "0", padding: "1vw 1vw", border: hoveredIndex === index ? "2px solid #5BB4C5" : "1px solid #ddd"
+          , boxShadow: hoveredIndex === index ? "0 4px 10px rgba(0, 0, 0, 0.2)" : "none",backgroundColor: "#FAFEFF",
+          transform: hoveredIndex === index ? "translateY(-5px)" : "translateY(0)",}}>               
          <img style = {{width: "40%", marginRight: "0"}} src={`http://localhost:8080/${property.images[0]}`} alt={`Property`}/>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
           padding: "0", height: "100%", marginRight: "0vw", marginLeft: "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
