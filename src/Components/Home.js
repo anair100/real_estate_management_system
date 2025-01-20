@@ -304,7 +304,7 @@ function Home() {
       </div>
       <Container className="input-container" style={{ width: isMobile ? "90%" : "50%", marginTop: "2vh" }}>
         <h1 style={{
-          fontSize: isMobile ? "7vw" : "4vw", fontStyle: "italic", marginTop: "2vw", fontFamily: "Inria Serif",
+          fontSize: isMobile ? "8vw" : "4vw", fontStyle: "italic", marginTop: "2vw", fontFamily: "Inria Serif",
           width: "100%", margin: "auto", marginBottom: isMobile ? "2.5vw" : "1.2vw", padding: "0vw"
         }}>
           Find Your Dream Home!</h1>
@@ -371,29 +371,25 @@ function Home() {
             )}
           </div>
         </div>
-        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginBottom: isMobile ? "2vw" : "1vw", marginTop: "0" }}>
-          <div style={{ fontSize: isMobile ? "4vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500" }}>
+        <div style={{ display: "flex", width: isMobile? "100%": "80%", marginLeft: "2vw", marginBottom: isMobile ? "2vw" : "1vw", marginTop: "0"}}>
+          <div style={{ fontSize: isMobile ? "5vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500"}}>
             Looking For:</div>
-          <div style={{ display: "flex", padding: "0", margin: "0", width: "50%" }}>
-            <label style={{
-              fontSize: isMobile ? "4vw" : "2vw", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", fontWeight: "500",
-              width: "50%", borderWidth: "0.1vw", borderColor: "#ccc", padding: "0vw", boxSizing: "border-box"
-            }}>
+          <div style={{ display: "flex", padding: "0", margin: "0", width: isMobile? "60%": "50%"}}>
+            <label style={{fontSize: isMobile ? "5vw" : "2vw", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", fontWeight: "500",
+              width: "50%", borderWidth: "0.1vw", borderColor: "#ccc", padding: "0vw", boxSizing: "border-box"}}>
               <input type="radio" name="rentOrSell" value="Sell"
                 checked={formData.rentOrSell === 'Sell'} onChange={handleChange}
                 style={{
-                  appearance: "none", width: isMobile ? "2vw" : "1vw", height: isMobile ? "2vw" : "1vw", border: "0.2vw solid black", borderRadius: "50%",
+                  appearance: "none", width: isMobile ? "3vw" : "1vw", height: isMobile ? "3vw" : "1vw", border: "0.2vw solid black", borderRadius: "50%",
                   outline: "none", cursor: "pointer", transition: "background-color 0.3s", borderColor: "0.3s", marginRight: "0.5vw", marginLeft: isMobile ? "5vw" : "3vw"
                 }}
               />Buy
             </label>
-            <label style={{
-              fontSize: isMobile ? "4vw" : "2vw", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", fontWeight: "500",
-              width: "50%", borderWidth: "0.1vw", borderColor: "#ccc", padding: "0vw", boxSizing: "border-box",
-            }}>
+            <label style={{fontSize: isMobile ? "5vw" : "2vw", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", fontWeight: "500",
+              width: "50%", borderWidth: "0.1vw", borderColor: "#ccc", padding: "0vw", boxSizing: "border-box"}}>
               <input type="radio" name="rentOrSell" value="Rent" checked={formData.rentOrSell === 'Rent'} onChange={handleChange}
                 style={{
-                  appearance: "none", width: isMobile ? "2vw" : "1vw", height: isMobile ? "2vw" : "1vw", border: "0.2vw solid black", borderRadius: "50%",
+                  appearance: "none", width: isMobile ? "3vw" : "1vw", height: isMobile ? "3vw" : "1vw", border: "0.2vw solid black", borderRadius: "50%",
                   outline: "none", cursor: "pointer", transition: "background-color 0.3s", borderColor: "0.3s", marginRight: "0.5vw"
                 }}
               />Rent
@@ -402,16 +398,15 @@ function Home() {
         </div>
 
         <div style={{ display: "flex", width: isMobile ? "100%" : "95%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "4vw" : "1.5vw" }}>
-          <div style={{ fontSize: isMobile ? "4vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500", marginRight: isMobile ? "2vw" : "1.4vw" }}>
+          <div style={{ fontSize: isMobile ? "4.5vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500", marginRight: isMobile ? "2vw" : "1.4vw" }}>
             Property Type: </div>
           {formData.rentOrSell === 'Sell' && renderTypesForSell()}
           {formData.rentOrSell === 'Rent' && renderTypesForRent()}
         </div>
 
-        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "1vw" : "1vw" }}>
-          <div style={{
-            fontSize: isMobile ? "4vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
-            marginRight: isMobile ? "2vw" : "1.4vw"
+        <div style={{ display: "flex", width: isMobile? "90%": "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "2vw" : "1vw"}}>
+          <div style={{fontSize: isMobile ? "5vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
+            marginRight: isMobile ? "2.5vw" : "1.4vw"
           }}>Budget: </div>
           <div className="slider-container">
             <div className="slider-track"></div>
@@ -420,10 +415,11 @@ function Home() {
             <input type="range" min="1" max="99" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right" />
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "11.5vw", width: "75%", padding: "0", marginTop: "0", 
-          marginBottom: isMobile ? "4vw" : "1vw"}}>
-          <label style={{ fontSize: isMobile ? "3vw" : "1.2vw" }}>Min: </label>
-          <input style={{ width: "15%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+        <div style={{ display: "flex",  flexWrap: "wrap", alignItems: "center", marginLeft: isMobile ? "22.5vw" : "11.5vw", width: isMobile? "70%":"75%", padding: "0", marginTop: "0", 
+          marginBottom: isMobile ? "4vw" : "1vw", justifyContent: isMobile ? "flex-start" : "space-between"}}>
+          <label style={{ fontSize: isMobile ? "5vw" : "1.2vw"}}>Min: </label>
+          <input style={{ width: isMobile? "25%": "15%", marginLeft: isMobile? "2vw":"1vw", fontSize: isMobile ? "4.5vw" : "1.2vw", borderRadius: isMobile? "7vw": "5vw",
+           padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="min-input"
             type="number"
             value={minValue}
@@ -431,8 +427,9 @@ function Home() {
             min="1"
             max="99"
           />
-          <label style={{ fontSize: isMobile ? "3vw" : "1.2vw", marginLeft: isMobile ? "6vw" : "1.5vw" }}>Max: </label>
-          <input style={{ width: "15%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+          <label style={{ fontSize: isMobile ? "4.5vw" : "1.2vw", marginLeft: isMobile ? "3vw" : "1.5vw" }}>Max: </label>
+          <input style={{ width: isMobile? "25%": "15%", marginLeft: isMobile? "2vw":"1vw", fontSize: isMobile ? "4.5vw" : "1.2vw", 
+            borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="max-input"
             type="number"
             value={maxValue}
@@ -440,28 +437,29 @@ function Home() {
             min="1"
             max="99"
           />
-          <select name="budgetType" defaultValue="Lakh" onChange = {handleBudgetTypeChange} style={{marginLeft: "1.5vw", padding: "0.3vw", 
-            borderRadius: "0.5vw", borderStyle: "ridge", fontSize: isMobile? "3vw": "1.2vw", borderRadius: "5vw", width: "25%"}}>
+          <select name="budgetType" defaultValue="Lakh" onChange = {handleBudgetTypeChange} style={{marginLeft: isMobile? "0": "1.5vw", padding: "0.3vw", 
+            borderRadius: "0.5vw", borderStyle: "ridge", fontSize: isMobile? "4.5vw": "1.2vw", borderRadius: "5vw", width: isMobile? "42%": "25%", marginTop: isMobile? "2vw": "0"}}>
            <option value="Lakh">Lakh</option>
            <option value="Thousand">Thousand</option>
            <option value="Crore">Crore</option>
           </select>
         </div>
 
-        <div style={{ display: "flex", width: "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile ? "1vw" : "1vw"}}>
-          <div style={{fontSize: isMobile ? "4vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
-            marginRight: isMobile ? "2vw" : "1.4vw"}}>Size: </div>
-          <div className="slider-container" style = {{marginLeft: "4vw"}}>
+        <div style={{ display: "flex", width: isMobile? "90%": "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile? "2vw": "1vw"}}>
+          <div style={{fontSize: isMobile ? "5vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
+            marginRight: isMobile ? "2vw" : "5.3vw"}}>Size: </div>
+          <div className="slider-container" style = {{marginLeft: isMobile? "8.5vw": "0"}}>
             <div className="slider-track"></div>
             <div className="slider-highlight" style={{ left: `${((minSize - 100) / 5000) * 100}%`, width: `${((maxSize - minSize) / 4900) * 100}%`}}></div>
             <input type="range" min="100" max="5000" value={minSize} onChange={handleMinSizeChange} className="slider-thumb slider-thumb-left" />
             <input type="range" min="100" max="5000" value={maxSize} onChange={handleMaxSizeChange} className="slider-thumb slider-thumb-right" />
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "19vw" : "11.5vw", width: "75%", padding: "0", marginTop: "0", 
-          marginBottom: "0"}}>
-          <label style={{ fontSize: isMobile ? "3vw" : "1.2vw" }}>Min: </label>
-          <input style={{ width: "15%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+        <div style={{ display: "flex",  flexWrap: "wrap", alignItems: "center", marginLeft: isMobile ? "22.5vw" : "11.5vw", width: isMobile? "70%":"75%", padding: "0", marginTop: "0", 
+          marginBottom: isMobile ? "4vw" : "1vw", justifyContent: isMobile ? "flex-start" : "space-between"}}>
+          <label style={{ fontSize: isMobile ? "5vw" : "1.2vw" }}>Min: </label>
+          <input style={{ width: isMobile? "25%": "15%", marginLeft: isMobile? "2vw":"1vw", fontSize: isMobile ? "4.5vw" : "1.2vw", borderRadius: isMobile? "7vw": "5vw",
+           padding: "0.2vw 0.5vw", border: "1px solid #ccc"  }}
             id="min-input"
             type="number"
             value={minSize}
@@ -469,8 +467,9 @@ function Home() {
             min="100"
             max="5000"
           />
-          <label style={{ fontSize: isMobile ? "3vw" : "1.2vw", marginLeft: isMobile ? "6vw" : "1.5vw" }}>Max: </label>
-          <input style={{ width: "15%", marginLeft: "1vw", fontSize: isMobile ? "3vw" : "1.2vw", borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
+          <label style={{ fontSize: isMobile ? "4.5vw" : "1.2vw", marginLeft: isMobile ? "3vw" : "1.5vw" }}>Max: </label>
+          <input style={{ width: isMobile? "25%": "15%", marginLeft: isMobile? "2vw":"1vw", fontSize: isMobile ? "4.5vw" : "1.2vw", 
+            borderRadius: "5vw", padding: "0.2vw 0.5vw", border: "1px solid #ccc" }}
             id="max-input"
             type="number"
             value={maxSize}
@@ -479,23 +478,23 @@ function Home() {
             max="5000"
           />
           <select name = "sizeType" defaultValue="Square Feet" onChange = {handleSizeTypeChange}
-           style={{marginLeft: "1.5vw", padding: "0.3vw", borderRadius: "0.5vw", borderStyle: "ridge", fontSize: isMobile? "3vw": "1.2vw", 
-           borderRadius: "5vw", width: "25%"}}>
+           style={{marginLeft: isMobile? "0": "1.5vw", padding: "0.3vw", 
+            borderRadius: "0.5vw", borderStyle: "ridge", fontSize: isMobile? "4.5vw": "1.2vw", borderRadius: "5vw", width: isMobile? "52%": "25%", marginTop: isMobile? "2vw": "0"}}>
            <option value="Square Feet">Square Feet</option>
            <option value="Acre">Acre</option>
            <option value="Bigha">Bigha</option>
           </select>
         </div>
 
-        <div style={{ marginTop: isMobile ? "6vw" : "4vw", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0vw", padding: "0" }}>
+        <div style={{ marginTop: isMobile ? "12vw" : "4vw", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0vw", padding: "0" }}>
           <button style={{
-            backgroundColor: "#B9B8E3", borderRadius: "5vw", fontSize: isMobile ? "3vw" : "1.5vw", fontWeight: "bold", padding: isMobile ? "2.5vw 10vw" : "0.8vw 5vw",
+            backgroundColor: "#B9B8E3", borderRadius: isMobile? "7vw": "5vw", fontSize: isMobile ? "5vw" : "1.5vw", fontWeight: "bold", padding: isMobile ? "2.5vw 10vw" : "0.8vw 5vw",
             border: "none"
           }} onClick={handleSearch}>Search</button>
         </div>
         <div style={{ marginTop: isMobile ? "2.5vw" : "1.5vw", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Link to='/add' style={{
-            backgroundColor: "#72A7CF", borderRadius: "5vw", fontSize: isMobile ? "3vw" : "1.5vw", fontWeight: "bold", padding: isMobile ? "2.5vw 15vw" : "0.8vw 8vw",
+            backgroundColor: "#72A7CF", borderRadius: isMobile? "7vw": "5vw", fontSize: isMobile ? "5vw" : "1.5vw", fontWeight: "bold", padding: isMobile ? "2.5vw 15vw" : "0.8vw 8vw",
             border: "none", textDecoration: "none", color: "black"
           }} >Add Property</Link>
         </div>
