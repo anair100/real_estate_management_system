@@ -25,7 +25,10 @@ const SearchResult = () => {
         //     'Content-Type': 'application/json'
         //   }
         // })
-        const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
+
+        //forks for seperate UI and Backend
+        // const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
+        const response = await api.get(`/search?${searchParams}`);
         console.log(response.data);
         setProperties(response.data);
 
