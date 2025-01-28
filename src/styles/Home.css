@@ -51,7 +51,7 @@
 .slider-highlight {
   position: absolute;
   height: 1vw;
-  background: #2034e7;
+  background: #c3a7d9fb;
   border-radius: 0.25rem;
   z-index: 2;
   width: 100%
@@ -73,11 +73,12 @@
   appearance: none;
   width: 2vw;
   height: 2vw;
-  background: #fefeff;
+  background: #6124e4;
   cursor: pointer;
   pointer-events: auto;
-  border-color: #303299;
+  border-color: #cbb1ec;
   border-style: solid;
+  border-radius: 50%
 }
 
 .slider-thumb::-moz-range-thumb {
