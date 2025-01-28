@@ -301,30 +301,24 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ textAlign: "center", maxWidth: "100%", width: "100%", marginBottom: "0", backgroundColor: "#F1F2F2", padding: "0" }}>
+    <div style={{ textAlign: "center", maxWidth: "100%", width: "100%", marginBottom: "0", backgroundColor: "#F1F2F2", padding: "0",  minHeight: "100vh" }}>
       <div style={{ backgroundColor: isMobile ? "#96E3E4" : "#96E3E4", padding: "20px" }}>
         <Image style={{ width: isMobile ? "50%" : "25%", height: "auto" }} src={home_image} />
       </div>
-      <Container className="input-container" style={{ width: isMobile ? "90%" : "50%", marginTop: "2vh" }}>
+      <Container className="input-container" style={{ width: isMobile ? "90%" : "50%", marginTop: isMobile? "5vw": "2vh", paddingTop: isMobile? "3vw": "1vw"}}>
         <h1 style={{
-          fontSize: isMobile ? "7vw" : "4vw", fontStyle: "italic", marginTop: isMobile? "4vw": "2vw", fontFamily: "Inria Serif",
+          fontSize: isMobile ? "7vw" : "4vw", fontStyle: "italic", fontFamily: "Inria Serif",
           width: "100%", marginBottom: isMobile ? "2.5vw" : "1.2vw", padding: "0vw"}}>
           Find Your Dream Home!</h1>
         <div  ref={inputRef}>
           <div>
-            <input
-              type="text"
-              name="location"
-              placeholder="Enter Location"          
-              value={formData.location}
-              onChange={handleChange}
-              onFocus={() => setFocused(true)} // Show suggestions when focused
+            <input type="text" name="location" placeholder="Enter Location" value={formData.location} onChange={handleChange} onFocus={() => setFocused(true)}
               style={{
                 backgroundColor: '#F1F2F2',
                 marginTop: '0',
                 marginBottom: isMobile ? '2vw' : '1.5vw',
-                width: isMobile ? '80%' : '60%',
-                fontSize: isMobile ? '3vw' : '1.5vw',
+                width: isMobile ? '90%' : '60%',
+                fontSize: isMobile ? '4vw' : '1.5vw',
                 borderRadius: '5vw',
                 padding: isMobile ? '1vw 2vw' : '0.5vw 1vw',
                 fontWeight: '500',
@@ -350,7 +344,7 @@ function Home() {
                 overflowY: 'auto', // Enable scrolling
                 //  backdropFilter: 'blur(10px)', // Optional: add a blur effect
               }}>
-                {locations.map((suggestion, index) => (
+              {locations.map((suggestion, index) => (
                   <li
                     key={index}
                     style={{
@@ -359,13 +353,10 @@ function Home() {
                       // borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
                       backgroundColor: 'white',
                     }}
-
                     onClick={() => {
                       setFormData({ location: suggestion.location });
                       setLocations([]);
-                    }
-                    }
-                  >
+                    }}>
                     {suggestion.location}
                   </li>
                 ))}
@@ -413,7 +404,7 @@ function Home() {
             <input type="range" min="1" max="99" value={maxValue} onChange={handleMaxChange} className="slider-thumb slider-thumb-right" />
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "22.5vw" : "11.5vw", width: isMobile? "70%":"75%", padding: "0", marginTop: "0", 
+        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "23.5vw" : "11.5vw", width: isMobile? "70%":"75%", padding: "0", marginTop: "0", 
           marginBottom: isMobile ? "4vw" : "1vw", justifyContent: isMobile ? "flex-start" : "space-between"}}>
           <input style={{ width: isMobile? "25%": "15%", marginLeft: "0", fontSize: isMobile ? "4.5vw" : "1.2vw", borderRadius: isMobile? "2vw": "5vw",
            padding: "0.2vw 0.5vw", border: "1px solid #ccc"  }}
@@ -445,14 +436,14 @@ function Home() {
         <div style={{ display: "flex", width: isMobile? "90%": "80%", marginLeft: "2vw", marginTop: "0", padding: "0", marginBottom: isMobile? "4vw": "1vw"}}>
           <div style={{fontSize: isMobile ? "5vw" : "2vw", display: "flex", alignItems: "center", padding: "0", fontWeight: "500",
             marginRight: isMobile ? "2vw" : "5.3vw"}}>Size: </div>
-          <div className="slider-container" style = {{marginLeft: isMobile? "8.5vw": "0"}}>
+          <div className="slider-container" style = {{marginLeft: isMobile? "9vw": "0"}}>
             <div className="slider-track"></div>
             <div className="slider-highlight" style={{ left: `${((minSize - 100) / 5000) * 100}%`, width: `${((maxSize - minSize) / 4900) * 100}%`}}></div>
             <input type="range" min="100" max="5000" value={minSize} onChange={handleMinSizeChange} className="slider-thumb slider-thumb-left" />
             <input type="range" min="100" max="5000" value={maxSize} onChange={handleMaxSizeChange} className="slider-thumb slider-thumb-right" />
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "22.5vw" : "11.5vw", width: isMobile? "70%":"75%", padding: "0", marginTop: "0", 
+        <div style={{ display: "flex", alignItems: "center", marginLeft: isMobile ? "23.5vw" : "11.5vw", width: isMobile? "70%":"75%", padding: "0", marginTop: "0", 
           marginBottom: isMobile ? "4vw" : "1vw", justifyContent: isMobile ? "flex-start" : "space-between"}}>
           <input style={{ width: isMobile? "25%": "15%", marginLeft: "0", fontSize: isMobile ? "4.5vw" : "1.2vw", borderRadius: isMobile? "2vw": "5vw",
            padding: "0.2vw 0.5vw", border: "1px solid #ccc"}}
@@ -492,7 +483,7 @@ function Home() {
         <div style={{ marginTop: isMobile ? "4vw" : "1.5vw", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Link to='/add' style={{
             backgroundColor: "#72A7CF", borderRadius: isMobile? "7vw": "5vw", fontSize: isMobile ? "5vw" : "1.5vw", fontWeight: "500", padding: isMobile ? "2vw 15vw" : "0.8vw 8vw",
-            border: "none", textDecoration: "none", color: "black"
+            border: "none", textDecoration: "none", color: "black", marginBottom: isMobile? "5vw": "2vw"
           }} >Add Property</Link>
         </div>
       </Container>

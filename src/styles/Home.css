@@ -73,10 +73,10 @@
   appearance: none;
   width: 2vw;
   height: 2vw;
-  background: #fefeff;
+  background: #6124e4;
   cursor: pointer;
   pointer-events: auto;
-  border-color: #303299;
+  border-color: #cbb1ec;
   border-style: solid;
   border-radius: 50%
 }
@@ -113,8 +113,8 @@
   }
 
   .slider-thumb::-webkit-slider-thumb {
-    width: 5vw;
-    height: 5vw;
+    width: 6vw;
+    height: 6vw;
   }
 
   .slider-thumb::-moz-range-thumb {
