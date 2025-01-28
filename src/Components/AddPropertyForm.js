@@ -87,7 +87,7 @@ for (let [key, value] of data.entries()) {
     //     //   'Content-Type':'application/json'
     //     // }
     //   })
-      const response  = await api.post('/add', data);
+      const response  = await api.post('/api/properties/add', data);
       
 
       alert('Property added successfully');

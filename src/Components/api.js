@@ -1,8 +1,12 @@
-// api/api.js
+
 import axios from 'axios';
 
+// const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
+// console.log('baseUrl:',apiBaseUrl);
+
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api/properties',
+  // baseURL: apiBaseUrl,
 });
 
 export default api;

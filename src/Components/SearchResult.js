@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import api from './api';
 import home_image from '../resources/home_image.webp';
-// import api from '../api/api';
+
+
 
 const SearchResult = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
@@ -28,7 +29,7 @@ const SearchResult = () => {
 
         //forks for seperate UI and Backend
         // const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
-        const response = await api.get(`/search?${searchParams}`);
+        const response = await api.get(`/api/properties/search?${searchParams}`);
         console.log(response.data);
         setProperties(response.data);
 
