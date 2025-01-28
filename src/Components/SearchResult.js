@@ -120,13 +120,13 @@ const SearchResult = () => {
        {properties.map((property, index) => (
         <div key={index}  onMouseEnter={() => setHoveredIndex(index)}
          onMouseLeave={() => setHoveredIndex(null)}style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto",  
-          display: "flex", marginBottom: "2vw", marginTop: "0", padding: "1vw 1vw", border: hoveredIndex === index ? "2px solid #5BB4C5" : "1px solid #ddd"
+          display: "flex", marginBottom: isMobile? "4vw": "2vw", marginTop: "0", padding: "1vw 1vw", border: hoveredIndex === index ? "2px solid #5BB4C5" : "1px solid #ddd"
           , boxShadow: hoveredIndex === index ? "0 4px 10px rgba(0, 0, 0, 0.2)" : "none",backgroundColor: "#FAFEFF",
           transform: hoveredIndex === index ? "translateY(-5px)" : "translateY(0)",}}>               
          <img style = {{width: "40%", marginRight: "0"}} src={`http://localhost:8080/${property.images[0]}`} alt={`Property`}/>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
           padding: "0", height: "100%", marginRight: "0vw", marginLeft: "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
-          <div style = {{fontSize: isMobile? "4vw": "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
+          <div style = {{fontSize: isMobile? "5vw": "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
            {property.type} For {property.rentOrSell} In {property.location}
           </div>
           <div style = {{fontSize: "2vw", fontWeight: "600", display: "flex", width: isMobile? "100%": "80%", 
@@ -136,7 +136,7 @@ const SearchResult = () => {
              Area
             </div>
             <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
-             5000 {property.size} Sq.Ft.
+             {property.size} Sq.Ft.
             </div>
            </div>
            <div style ={{width: isMobile? "60%": "40%", marginLeft: "2vw"}}>
@@ -144,12 +144,12 @@ const SearchResult = () => {
              Price
             </div>
             <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
-             Rs. {property.price>=10000000? `${(property.price/10000000).toFixed(1)} Cr.`: property.price>=100000? `${(property.price/100000).toFixed(1)} Lac`: `${(property.price/1000).toFixed(1)} Th.`}
+             Rs. {property.price>=10000000? `${(property.price/10000000).toFixed(0)} Cr.`: property.price>=100000? `${(property.price/100000).toFixed(0)} Lac`: `${(property.price/1000).toFixed(0)} Th.`}
             </div>
            </div>
           </div>
           <div style = {{ display: "flex", maxWidth: "100%", marginTop: isMobile? "5vw": "3vw",
-            marginBottom: "0.5vw", width: "80%"}}>
+            marginBottom: isMobile? "2vw": "0.5vw", width: "80%"}}>
            <a style = {{padding: "1vw 2vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
             fontFamily: "sans-serif", fontSize: isMobile? "4.5vw": "1.5vw", marginRight: "0vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
            <a style = {{padding: "1vw 2vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
