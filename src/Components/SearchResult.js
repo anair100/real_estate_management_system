@@ -15,6 +15,17 @@ const SearchResult = () => {
   console.log(' modifiedSearchParams: searchParams:',modifiedSearchParams)
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+  
+    window.addEventListener("resize", handleResize);
+    return () => {
+     window.removeEventListener("resize", handleResize);
+    };
+  },[]);
+
+  useEffect(() => { 
     console.log('Inside fetchProperties: searchParams:',searchParams);
     const fetchProperties = async () => {
       try {
@@ -76,74 +87,74 @@ const SearchResult = () => {
   };
 
   return (
-    <div style = {{backgroundColor: "#F1F2F2"}}>
-      <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: "0.6vw 0.5vw"}}>
-       <select name="rentOrSell" onChange={handleChange} style={{ marginLeft: "2vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.2vw"}}>
+    <div style = {{backgroundColor: "#F1F2F2", minHeight: "100vh"}}>
+      <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: isMobile? "2vw 2vw":"0.6vw 0.5vw", flexWrap: "wrap"}}>
+       <select name="rentOrSell" onChange={handleChange} style={{ marginLeft: "2vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "4vw": "1.2vw"}}>
         <option value="" disabled selected>
           Looking to
         </option>
         <option value="Sell">Buy</option>
         <option value="Rent">Rent</option>
        </select>
-       <select name='type' onChange={handleChange} style={{ marginLeft: "2vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "1.2vw"}}>
+       <select name='type' onChange={handleChange} style={{ marginLeft: isMobile? "4vw": "2vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "4vw": "1.2vw"}}>
         <option value="" disabled selected>
-          Property Type
+          Type
         </option>
         <option value="House">House</option>
         <option value="Plot">Plot</option>
         <option value="Flat">Flat</option>
         <option value="Land">Land</option>
        </select>
-       <input type = "number" style = {{marginLeft: "3vw", fontSize: "1.2vw", padding: "0.3vw", borderRadius: "5vw", borderStyle: "inset"}} onChange={handleChange} id="priceMin" name="priceMin" placeholder="Min Price (in ₹ Lakhs)"/>
-       <input style = {{marginLeft: "2vw", fontSize: "1.2vw", padding: "0.3vw",  borderRadius: "5vw", borderStyle: "inset"}} onChange={handleChange} type="text" id="priceMax" name="priceMax" placeholder="Max Price (in ₹ Lakhs)"   />
+       <input type = "number" style = {{marginLeft: "3vw", fontSize: isMobile? "3vw": "1.2vw", padding: "0.3vw", borderRadius: "5vw", borderStyle: "inset"}} onChange={handleChange} id="priceMin" name="priceMin" placeholder="Min Price (in ₹ Lakhs)"/>
+       <input style = {{marginLeft: "2vw",  fontSize: isMobile? "3vw": "1.2vw", padding: "0.3vw",  borderRadius: "5vw", borderStyle: "inset"}} onChange={handleChange} type="text" id="priceMax" name="priceMax" placeholder="Max Price (in ₹ Lakhs)"   />
        <button onClick={handlemodify}  style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
-        padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: "1.2vw", marginLeft: "auto", marginRight: "2vw"}}>Modify Search</button>
+        padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: isMobile? "4vw": "1.2vw", marginLeft: "auto", marginRight: "2vw"}}>Modify Search</button>
       </div>
     
       <div style = {{marginLeft: "5vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
-        marginBottom: "1.2vw", width: "80%"}}>
-        <h1 style = {{fontSize: "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw", textDecoration: "underline"}}>Showing projects in</h1>
-        <h2 style = {{fontSize: "3vw", marginTop: "0", padding: "0", marginBottom: "2vw", textDecoration: "underline"}}>{searchParams.get("location")}</h2>
+        marginBottom: isMobile? "4vw": "1.2vw", width: "80%"}}>
+        <h1 style = {{fontSize: isMobile? "5vw": "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw", textDecoration: "underline"}}>Showing projects in</h1>
+        <h2 style = {{fontSize: isMobile? "7vw":"3vw", marginTop: "0", padding: "0", marginBottom: "2vw", textDecoration: "underline"}}>{searchParams.get("location")}</h2>
       </div>
 
-      <ul style = {{width: "80%", marginLeft: "5vw", position: "relative", height: "auto", padding: "0", display: "block"}}>
+      <ul style = {{width: isMobile? "90%": "80%", marginLeft: "5vw", position: "relative", height: "auto", padding: "0", display: "block"}}>
        {properties.map((property, index) => (
         <div key={index}  onMouseEnter={() => setHoveredIndex(index)}
          onMouseLeave={() => setHoveredIndex(null)}style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto",  
-          display: "flex", marginBottom: "2vw", marginTop: "0", padding: "1vw 1vw", border: hoveredIndex === index ? "2px solid #5BB4C5" : "1px solid #ddd"
+          display: "flex", marginBottom: isMobile? "4vw": "2vw", marginTop: "0", padding: "1vw 1vw", border: hoveredIndex === index ? "2px solid #5BB4C5" : "1px solid #ddd"
           , boxShadow: hoveredIndex === index ? "0 4px 10px rgba(0, 0, 0, 0.2)" : "none",backgroundColor: "#FAFEFF",
           transform: hoveredIndex === index ? "translateY(-5px)" : "translateY(0)",}}>               
          <img style = {{width: "40%", marginRight: "0"}} src={`http://localhost:8080/${property.images[0]}`} alt={`Property`}/>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
           padding: "0", height: "100%", marginRight: "0vw", marginLeft: "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
-          <div style = {{fontSize: "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
+          <div style = {{fontSize: isMobile? "5vw": "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
            {property.type} For {property.rentOrSell} In {property.location}
           </div>
-          <div style = {{fontSize: "2vw", fontWeight: "600", display: "flex", width: "80%", 
-            marginTop: "1.5vw", marginLeft: "1vw"}}>
-           <div style ={{width: "40%", borderRight: "solid"}}>
-            <div style = {{fontSize: "1.5vw", fontWeight: "600"}}>
+          <div style = {{fontSize: "2vw", fontWeight: "600", display: "flex", width: isMobile? "100%": "80%", 
+            marginTop: "1.5vw", marginLeft: isMobile? "0": "1vw"}}>
+           <div style ={{width: isMobile? "50%": "40%", borderRight: "solid"}}>
+            <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
              Area
             </div>
-            <div style = {{fontSize: "1.5vw", fontWeight: "600"}}>
-             5000 {property.size} Sq. Ft.
+            <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
+             {property.size} Sq.Ft.
             </div>
            </div>
-           <div style ={{width: "40%", marginLeft: "2vw"}}>
-            <div style = {{fontSize: "1.5vw", fontWeight: "600"}}>
+           <div style ={{width: isMobile? "60%": "40%", marginLeft: "2vw"}}>
+            <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
              Price
             </div>
-            <div style = {{fontSize: "1.5vw", fontWeight: "600"}}>
-             Rs. {property.price>=10000000? `${(property.price/10000000)} Crore`: property.price>=100000? `${(property.price/100000)} Lakh`: `${(property.price/1000)} Thousand`}
+            <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
+             Rs. {property.price>=10000000? `${(property.price/10000000).toFixed(0)} Cr.`: property.price>=100000? `${(property.price/100000).toFixed(0)} Lac`: `${(property.price/1000).toFixed(0)} Th.`}
             </div>
            </div>
           </div>
-          <div style = {{ display: "flex", maxWidth: "100%", marginTop: "3vw",
-            marginBottom: "0.5vw", width: "80%"}}>
+          <div style = {{ display: "flex", maxWidth: "100%", marginTop: isMobile? "5vw": "3vw",
+            marginBottom: isMobile? "2vw": "0.5vw", width: "80%"}}>
            <a style = {{padding: "1vw 2vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
-            fontFamily: "sans-serif", fontSize: "1.5vw", marginRight: "0vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
+            fontFamily: "sans-serif", fontSize: isMobile? "4.5vw": "1.5vw", marginRight: "0vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
            <a style = {{padding: "1vw 2vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
-           fontFamily: "sans-serif", fontSize: "1.5vw", float: "right", marginLeft: "3vw", borderRadius: '1vw'}} href="https://api.whatsapp.com/send?phone=9981069233">
+           fontFamily: "sans-serif", fontSize: isMobile? "4.5vw": "1.5vw", float: "right", marginLeft: isMobile? "5vw": "3vw", borderRadius: '1vw'}} href="https://api.whatsapp.com/send?phone=9981069233">
             WhatsApp
            </a>
           </div> 
