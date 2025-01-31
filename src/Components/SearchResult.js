@@ -3,8 +3,6 @@ import { useSearchParams } from 'react-router';
 import api from './api';
 import home_image from '../resources/home_image.webp';
 
-
-
 const SearchResult = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [properties, setProperties] = useState([]);
@@ -31,19 +29,12 @@ const SearchResult = () => {
       try {
         console.log('inside fetchProperties')
         const query = searchParams.toString();
-        //const response = await fetch(`http://localhost:8080/api/properties/search?${searchParams}`, {
-        //   method: 'GET',
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   }
-        // })
 
         //forks for seperate UI and Backend
         // const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
-        const response = await api.get(`/api/properties/search?${searchParams}`);
+        const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
         console.log(response.data);
         setProperties(response.data);
-
         console.log(properties);
       } catch (error) {
         console.error('Error fetching properties:', error);
@@ -68,8 +59,7 @@ const SearchResult = () => {
           googleLocation: 'g2',
           for: 'rent',
           images: [home_image]
-        }
-        ]);
+        }]);
       }
     };
     fetchProperties();
@@ -113,7 +103,7 @@ const SearchResult = () => {
     
       <div style = {{marginLeft: "5vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
         marginBottom: isMobile? "4vw": "1.2vw", width: "80%"}}>
-        <h1 style = {{fontSize: isMobile? "5vw": "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw", textDecoration: "underline"}}>Showing projects in</h1>
+        <h1 style = {{fontSize: isMobile? "5vw": "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw", textDecoration: "underline"}}>Showing all projects in</h1>
         <h2 style = {{fontSize: isMobile? "7vw":"3vw", marginTop: "0", padding: "0", marginBottom: "2vw", textDecoration: "underline"}}>{searchParams.get("location")}</h2>
       </div>
 
@@ -123,38 +113,42 @@ const SearchResult = () => {
          onMouseLeave={() => setHoveredIndex(null)}style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto",  
           display: "flex", marginBottom: isMobile? "4vw": "2vw", marginTop: "0", padding: "1vw 1vw", border: hoveredIndex === index ? "2px solid #5BB4C5" : "1px solid #ddd"
           , boxShadow: hoveredIndex === index ? "0 4px 10px rgba(0, 0, 0, 0.2)" : "none",backgroundColor: "#FAFEFF",
-          transform: hoveredIndex === index ? "translateY(-5px)" : "translateY(0)",}}>               
-         <img style = {{width: "40%", marginRight: "0"}} src={`http://localhost:8080/${property.images[0]}`} alt={`Property`}/>
+          transform: hoveredIndex === index ? "translateY(-5px)" : "translateY(0)"}}>               
+         <div style={{width: "40%", overflow: "hidden", borderRadius: "1vw", display: "flex", alignItems: "center" }}>
+          <img style={{
+           width: "100%", height: "auto", aspectRatio: "16/16", objectFit: "cover", borderRadius: "1vw"
+          }} src={`http://localhost:8080/${property.images[0]}`} alt="Property" />
+         </div>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
-          padding: "0", height: "100%", marginRight: "0vw", marginLeft: "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
-          <div style = {{fontSize: isMobile? "5vw": "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
+          padding: "0", height: "100%", marginRight: "0vw", marginLeft: isMobile? "3vw": "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
+          <div style = {{fontSize: isMobile? "4vw": "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
            {property.type} For {property.rentOrSell} In {property.location}
           </div>
           <div style = {{fontSize: "2vw", fontWeight: "600", display: "flex", width: isMobile? "100%": "80%", 
             marginTop: "1.5vw", marginLeft: isMobile? "0": "1vw"}}>
-           <div style ={{width: isMobile? "50%": "40%", borderRight: "solid"}}>
+           <div style ={{width: isMobile? "45%": "40%", borderRight: "solid"}}>
             <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
              Area
             </div>
             <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
-             {property.size} Sq.Ft.
+             {property.size>=43560? `${(property.size/43560).toFixed(0)} Acre`: property.size>=12000? `${(property.size/12000).toFixed(0)} Bigha`: `${(property.size)} SqFt.`}
             </div>
            </div>
-           <div style ={{width: isMobile? "60%": "40%", marginLeft: "2vw"}}>
+           <div style ={{width: isMobile? "55%": "40%", marginLeft: "2vw"}}>
             <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
              Price
             </div>
             <div style = {{fontSize: isMobile? "4vw": "1.5vw", fontWeight: "600"}}>
-             Rs. {property.price>=10000000? `${(property.price/10000000).toFixed(0)} Cr.`: property.price>=100000? `${(property.price/100000).toFixed(0)} Lac`: `${(property.price/1000).toFixed(0)} Th.`}
+             Rs. {property.price>=10000000? `${(property.price/10000000).toFixed(1)} Cr`: property.price>=100000? `${(property.price/100000).toFixed(1)} Lac`: `${(property.price/1000).toFixed(1)} Th`}
             </div>
            </div>
           </div>
           <div style = {{ display: "flex", maxWidth: "100%", marginTop: isMobile? "5vw": "3vw",
             marginBottom: isMobile? "2vw": "0.5vw", width: "80%"}}>
            <a style = {{padding: "1vw 2vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
-            fontFamily: "sans-serif", fontSize: isMobile? "4.5vw": "1.5vw", marginRight: "0vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
+            fontFamily: "sans-serif", fontSize: isMobile? "4vw": "1.5vw", marginRight: "0vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
            <a style = {{padding: "1vw 2vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
-           fontFamily: "sans-serif", fontSize: isMobile? "4.5vw": "1.5vw", float: "right", marginLeft: isMobile? "5vw": "3vw", borderRadius: '1vw'}} href="https://api.whatsapp.com/send?phone=9981069233">
+           fontFamily: "sans-serif", fontSize: isMobile? "4vw": "1.5vw", float: "right", marginLeft: isMobile? "8vw": "3vw", borderRadius: '1vw'}} href="https://api.whatsapp.com/send?phone=9981069233">
             WhatsApp
            </a>
           </div> 
