@@ -33,7 +33,7 @@ const SearchResult = () => {
 
         //forks for seperate UI and Backend
         // const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
-        const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
+        const response = await api.get(`/api/properties/search?${searchParams}`);
         console.log(response.data);
         setProperties(response.data);
         console.log(properties);
@@ -152,7 +152,7 @@ const SearchResult = () => {
          <div style={{width: "40%", overflow: "hidden", borderRadius: "1vw", display: "flex", alignItems: "center" }}>
           <img style={{
            width: "100%", height: "auto", aspectRatio: "16/16", objectFit: "cover", borderRadius: "1vw"
-          }} src={`http://localhost:8080/${property.images[0]}`} alt="Property" />
+          }} src={`/${property.images[0]}`} alt="Property" />
          </div>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
           padding: "0", height: "100%", marginRight: "0vw", marginLeft: isMobile? "3vw": "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  

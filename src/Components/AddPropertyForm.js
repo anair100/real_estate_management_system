@@ -78,7 +78,8 @@ const AddPropertyForm = () => {
 
     try {
       console.log('data',data);
-      const response  = await api.post('http://localhost:8080/api/properties/add', data);
+      // const response  = await api.post('http://localhost:8080/api/properties/add', data);
+      const response  = await api.post('/api/properties/add', data);
       alert('Property added successfully');
       console.log( response);
     } catch (error) {

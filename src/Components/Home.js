@@ -249,8 +249,8 @@ function Home() {
 
   const fetchSuggestions = async (query) => {
     try {
+//      const response = await fetch(`/api/properties/address?location=${encodeURIComponent(query)}`);
       const response = await fetch(`/api/properties/address?location=${encodeURIComponent(query)}`);
-
       if (!response.ok) throw new Error('Failed to fetch suggestions');
       const data = await response.json();
 
