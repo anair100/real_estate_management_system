@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import Home from "./Components/Home";
 import AddPropertyForm from "./Components/AddPropertyForm"
 import SearchResult from "./Components/SearchResult";
+import Propertydetails from "./Components/Propertydetails";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router";
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/home' element={<Home/>}/>
         <Route path='/add' element={<AddPropertyForm/>}/>
         <Route path='/search' element={<SearchResult/>}/>
+        <Route path='/showProperty' element={<Propertydetails/>}/>
       </Routes>
       </BrowserRouter>
       {/* <Footer/> */}
