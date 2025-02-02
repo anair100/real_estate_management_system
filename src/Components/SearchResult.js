@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import api from './api';
 import home_image from '../resources/home_image.webp';
+import { Link } from "react-router-dom";
 
 const SearchResult = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
@@ -102,7 +103,7 @@ const SearchResult = () => {
   }
 
   const renderFilterForMobile = () => {
-    return (<div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "block", flexDirection: "column", alignItems: "center", padding: "2vw 2vw"}}>
+    return (<div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "block", flexDirection: "column", alignItems: "center", padding: "3vw 2vw"}}>
      <div style = {{display: "flex", padding: "0"}} >
       <select name="rentOrSell" onChange={handleChange} style={{ padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "4vw", marginLeft: "2vw"}}>
        <option value="" disabled selected>
@@ -144,7 +145,7 @@ const SearchResult = () => {
       <ul style = {{width: isMobile? "90%": "80%", marginLeft: "5vw", position: "relative", height: "auto", padding: "0", display: "block"}}>
        {properties.map((property, index) => (
         <div key={index}  onMouseEnter={() => setHoveredIndex(index)}
-         onMouseLeave={() => setHoveredIndex(null)}style = {{borderStyle: "hidden", borderRadius: "2vw", width: "100%", height: "auto",  
+         onMouseLeave={() => setHoveredIndex(null)}style = {{borderStyle: "hidden", borderRadius: "5vw", width: "100%", height: "auto",  
           display: "flex", marginBottom: isMobile? "4vw": "2vw", marginTop: "0", padding: "1vw 1vw", border: hoveredIndex === index ? "2px solid #5BB4C5" : "1px solid #ddd"
           , boxShadow: hoveredIndex === index ? "0 4px 10px rgba(0, 0, 0, 0.2)" : "none",backgroundColor: "#FAFEFF",
           transform: hoveredIndex === index ? "translateY(-5px)" : "translateY(0)"}}>               
@@ -155,9 +156,10 @@ const SearchResult = () => {
          </div>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
           padding: "0", height: "100%", marginRight: "0vw", marginLeft: isMobile? "3vw": "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
-          <div style = {{fontSize: isMobile? "4vw": "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
+          <Link to={`/showProperty?type=${encodeURIComponent(property.type)}&rentOrSell=${encodeURIComponent(property.rentOrSell)}&location=${encodeURIComponent(property.location)}&size=${encodeURIComponent(property.size)}&price=${encodeURIComponent(property.price)}&images=${encodeURIComponent(property.images?.join(","))}`}
+           style = {{fontSize: isMobile? "4vw": "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
            {property.type} For {property.rentOrSell} In {property.location}
-          </div>
+          </Link>
           <div style = {{fontSize: "2vw", fontWeight: "600", display: "flex", width: isMobile? "100%": "80%", 
             marginTop: "1.5vw", marginLeft: isMobile? "0": "1vw"}}>
            <div style ={{width: isMobile? "45%": "40%", borderRight: "solid"}}>
