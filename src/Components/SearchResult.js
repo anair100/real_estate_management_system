@@ -76,35 +76,69 @@ const SearchResult = () => {
     console.log('in handleChange modifiedSearchParams: searchParams:',modifiedSearchParams)
   };
 
+  const renderFilterForDesktop = () => {
+    return ( <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: isMobile? "2vw 2vw":"0.6vw 0.5vw", flexWrap: "wrap"}}>
+      <select name="rentOrSell" onChange={handleChange} style={{ marginLeft: "2vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "4vw": "1.2vw"}}>
+       <option value="" disabled selected>
+         Looking to
+       </option>
+       <option value="Sell">Buy</option>
+       <option value="Rent">Rent</option>
+      </select>
+      <select name='type' onChange={handleChange} style={{ marginLeft: isMobile? "4vw": "2vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "4vw": "1.2vw"}}>
+       <option value="" disabled selected>
+         Type
+       </option>
+       <option value="House">House</option>
+       <option value="Plot">Plot</option>
+       <option value="Flat">Flat</option>
+       <option value="Land">Land</option>
+      </select>
+      <input type = "number" style = {{marginLeft: "3vw", fontSize: isMobile? "4vw": "1.2vw", paddingRight: isMobile? "0.2vw": "0.3vw",  borderRadius: "0.5vw", borderStyle: "inset"}} onChange={handleChange} id="priceMin" name="priceMin" placeholder="Min Price (in ₹ Lakhs)"/>
+      <input style = {{marginLeft: "2vw",  fontSize: isMobile? "4vw": "1.2vw", padding: "0.3vw",  borderRadius: "0.5vw", borderStyle: "inset"}} onChange={handleChange} type="text" id="priceMax" name="priceMax" placeholder="Max Price (in ₹ Lakhs)"   />
+      <button onClick={handlemodify}  style={{ backgroundColor: 'blue', color: 'white', border: 'none',  borderRadius: "0.5vw", 
+       padding: '1vw 1vw', marginRight: "0", fontSize: isMobile? "4vw": "1.2vw", marginLeft: "auto", marginRight: "2vw"}}>Modify Search</button>
+     </div>)
+  }
+
+  const renderFilterForMobile = () => {
+    return (<div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "block", flexDirection: "column", alignItems: "center", padding: "2vw 2vw"}}>
+     <div style = {{display: "flex", padding: "0"}} >
+      <select name="rentOrSell" onChange={handleChange} style={{ padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "4vw", marginLeft: "2vw"}}>
+       <option value="" disabled selected>
+         Looking to
+       </option>
+       <option value="Sell">Buy</option>
+       <option value="Rent">Rent</option>
+      </select>
+      <select name='type' onChange={handleChange} style={{ marginLeft: "4vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: "4vw"}}>
+       <option value="" disabled selected>
+         Type
+       </option>
+       <option value="House">House</option>
+       <option value="Plot">Plot</option>
+       <option value="Flat">Flat</option>
+       <option value="Land">Land</option>
+      </select>
+      <button onClick={handlemodify}  style={{ backgroundColor: 'blue', color: 'white', border: 'none',  borderRadius: "0.5vw", 
+       padding: '1vw 1vw', marginRight: "0", fontSize: "4vw", marginLeft: "16vw", marginRight: "2vw"}}>Modify Search</button>
+     </div>
+     <div style = {{display: "flex", padding: "0", marginTop: "2vw"}}>
+      <input type = "number" style = {{marginLeft: "2vw", fontSize: "4vw",  borderRadius: "0.5vw", borderStyle: "inset", width: "40%"}} onChange={handleChange} id="priceMin" name="priceMin" placeholder="Min Price (in Lakhs)"/>
+      <input type = "number" style = {{marginLeft: "4vw", fontSize: "4vw",  borderRadius: "0.5vw", borderStyle: "inset", width: "40%"}} onChange={handleChange} id="priceMax" name="priceMax" placeholder="Max Price (in Lakhs)"/>
+     </div>
+    </div>
+     )
+  }
+
   return (
     <div style = {{backgroundColor: "#F1F2F2", minHeight: "100vh"}}>
-      <div style = {{backgroundColor: "#F2FCFF", width: "100%", height: "auto",  display: "flex", flexDirection: "row", alignItems: "center", padding: isMobile? "2vw 2vw":"0.6vw 0.5vw", flexWrap: "wrap"}}>
-       <select name="rentOrSell" onChange={handleChange} style={{ marginLeft: "2vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "4vw": "1.2vw"}}>
-        <option value="" disabled selected>
-          Looking to
-        </option>
-        <option value="Sell">Buy</option>
-        <option value="Rent">Rent</option>
-       </select>
-       <select name='type' onChange={handleChange} style={{ marginLeft: isMobile? "4vw": "2vw", padding: "0.5vw", borderRadius: "0.5vw", borderStyle: "inset", fontSize: isMobile? "4vw": "1.2vw"}}>
-        <option value="" disabled selected>
-          Type
-        </option>
-        <option value="House">House</option>
-        <option value="Plot">Plot</option>
-        <option value="Flat">Flat</option>
-        <option value="Land">Land</option>
-       </select>
-       <input type = "number" style = {{marginLeft: "3vw", fontSize: isMobile? "3vw": "1.2vw", padding: "0.3vw", borderRadius: "5vw", borderStyle: "inset"}} onChange={handleChange} id="priceMin" name="priceMin" placeholder="Min Price (in ₹ Lakhs)"/>
-       <input style = {{marginLeft: "2vw",  fontSize: isMobile? "3vw": "1.2vw", padding: "0.3vw",  borderRadius: "5vw", borderStyle: "inset"}} onChange={handleChange} type="text" id="priceMax" name="priceMax" placeholder="Max Price (in ₹ Lakhs)"   />
-       <button onClick={handlemodify}  style={{ backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px', 
-        padding: '1vw 1vw', borderRadius: "5vw", marginRight: "0", fontSize: isMobile? "4vw": "1.2vw", marginLeft: "auto", marginRight: "2vw"}}>Modify Search</button>
-      </div>
-    
-      <div style = {{marginLeft: "5vw", fontSize: "3vw", marginTop: "2vw", padding: "0", marginRight: "0.5vw", 
+      {isMobile === true && renderFilterForMobile()}
+      {isMobile === false && renderFilterForDesktop()}    
+      <div style = {{marginLeft: "5vw", fontSize: "3vw", marginTop: isMobile? "3vw": "2vw", padding: "0", marginRight: "0.5vw", 
         marginBottom: isMobile? "4vw": "1.2vw", width: "80%"}}>
-        <h1 style = {{fontSize: isMobile? "5vw": "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw", textDecoration: "underline"}}>Showing all projects in</h1>
-        <h2 style = {{fontSize: isMobile? "7vw":"3vw", marginTop: "0", padding: "0", marginBottom: "2vw", textDecoration: "underline"}}>{searchParams.get("location")}</h2>
+        <h1 style = {{fontSize: isMobile? "4vw": "1.5vw", marginTop: "0", padding: "0", marginBottom: "0vw", textDecoration: "underline"}}>Showing all projects in</h1>
+        <h2 style = {{fontSize: isMobile? "6vw":"3vw", marginTop: "0", padding: "0", marginBottom: "2vw", textDecoration: "underline"}}>{searchParams.get("location")}</h2>
       </div>
 
       <ul style = {{width: isMobile? "90%": "80%", marginLeft: "5vw", position: "relative", height: "auto", padding: "0", display: "block"}}>
@@ -148,7 +182,7 @@ const SearchResult = () => {
            <a style = {{padding: "1vw 2vw", backgroundColor: "red", color: "#fff", textDecoration: "none",
             fontFamily: "sans-serif", fontSize: isMobile? "4vw": "1.5vw", marginRight: "0vw", borderRadius: "1vw"}} href="tel:9981069233">Contact</a>
            <a style = {{padding: "1vw 2vw", backgroundColor: "#25D366", color: "#fff", textDecoration: "none", 
-           fontFamily: "sans-serif", fontSize: isMobile? "4vw": "1.5vw", float: "right", marginLeft: isMobile? "8vw": "3vw", borderRadius: '1vw'}} href="https://api.whatsapp.com/send?phone=9981069233">
+           fontFamily: "sans-serif", fontSize: isMobile? "4vw": "1.5vw", float: "right", marginLeft: isMobile? "6vw": "3vw", borderRadius: '1vw'}} href="https://api.whatsapp.com/send?phone=9981069233">
             WhatsApp
            </a>
           </div> 
