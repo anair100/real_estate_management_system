@@ -14,6 +14,7 @@ const Propertydetails = () => {
   const size = queryParams.get("size");
   const price = queryParams.get("price");
 
+  const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
    useEffect(() => {
       const handleResize = () => {
@@ -32,7 +33,20 @@ const Propertydetails = () => {
         {type} For {rentOrSell} In {propertyLocation}
       </div>
       <div style={{ width: "90%", height: isMobile? "40%": "20%", margin: "auto", marginTop: isMobile? "4vw": "2vw"}}>
-        <Image style={{ width: "100%"}} src={`http://localhost:8080/${images[0]}`} alt="Property"/>
+        <Image style={{ width: "100%"}} src={`http://localhost:8080/${images[0]}`} alt="Property" onClick={() => setIsOpen(true)}/>
+        {isOpen && (
+         <div style={{position: "fixed", top: 0, left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.8)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onClick={() => setIsOpen(false)}>
+          <img src={`http://localhost:8080/${images[0]}`} alt="Full Image" style={{ width: "50%" }} />
+        </div>
+      )}
       </div>
       <Container style={{ width: isMobile ? "90%" : "50%", marginTop: isMobile? "5vw": "2vw", paddingTop: isMobile? "0.5vw": "0.1vw", 
         marginBottom: isMobile? "2vw": "0",  borderStyle: "hidden", borderRadius: "20px", height: "auto",
