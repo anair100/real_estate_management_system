@@ -158,13 +158,12 @@ function Home() {
 
   const handleMinChange = (e) => {
     var value = Math.min(Number(e.target.value), maxValue - 1);
-    console.log('Budget Type: ' + budgetType);
     setMinValue(value);
     if(budgetType == 'Lakh'){
       value = value*100000;
     } else if(budgetType == 'Thousand'){
       value = value*1000;
-    } else if(value = 'Crore'){
+    } else if(budgetType == 'Crore'){
       value = value*10000000;
     }
     setFormData((prev) => ({
