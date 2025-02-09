@@ -343,6 +343,7 @@ function Home() {
                     onClick={() => {
                       setFormData({ location: suggestion.location });
                       setLocations([]);
+                      setFocused(false);
                     }}>
                     {suggestion.location}
                   </li>
