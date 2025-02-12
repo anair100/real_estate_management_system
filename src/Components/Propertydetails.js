@@ -2,6 +2,7 @@ import React from 'react'
 import { useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
 import { Container, Image } from "react-bootstrap";
+import api from './api';
 
 const Propertydetails = () => {
   const location = useLocation();
@@ -13,9 +14,11 @@ const Propertydetails = () => {
   const images = imagesParam ? imagesParam.split(",") : [];
   const size = queryParams.get("size");
   const price = queryParams.get("price");
+  
 
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+  const [isAdmin, setIsAdmin] = useState(false);
    useEffect(() => {
       const handleResize = () => {
         setIsMobile(window.innerWidth <= 768);
@@ -26,6 +29,33 @@ const Propertydetails = () => {
         window.removeEventListener("resize", handleResize);
       };
     }, []);
+
+    const checkAdmin = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode JWT
+          if (decodedToken.username === "admin") {
+            setIsAdmin(true);
+          }
+        } catch (error) {
+          setIsAdmin(false);
+        }
+      }
+    };
+
+    checkAdmin();
+
+    const handleDelete = async (id) => {
+      const token = localStorage.getItem("token");
+      // await axios.delete(`http://localhost:5000/properties/${id}`
+      await api.delete(`/api/properties/${id}`
+      , {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // setProperties(properties.filter((prop) => prop._id !== id));
+    };
+  
 
   return (
     <div style = {{backgroundColor: "#F1F2F2", minHeight: "100vh", paddingTop: isMobile? "3vw": "2vw"}}>
@@ -96,6 +126,13 @@ const Propertydetails = () => {
           WhatsApp
          </a>
        </div> 
+       {isAdmin && (
+              <>
+                <button>Edit</button>
+                <button onClick={() => handleDelete(queryParams.get("_id"))}>Delete</button>
+              </>
+            )}
+
       </Container>
     </div>
   )
