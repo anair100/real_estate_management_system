@@ -27,9 +27,10 @@ const Header = () => {
             </NavDropdown>
           </Nav>
           <div className="ms-auto">
-        <Nav.Link href="#signup" style = {{fontSize: "1.5vw", fontWeight: "400"}}>
+        <Nav.Link href="/login" style = {{fontSize: "1.5vw", fontWeight: "400"}}>
           Sign Up
         </Nav.Link>
+        
       </div>
         </Navbar.Collapse>
       </Container>

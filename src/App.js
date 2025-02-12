@@ -7,6 +7,7 @@ import SearchResult from "./Components/SearchResult";
 import Propertydetails from "./Components/Propertydetails";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router";
+import Login from './Components/login';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/add' element={<AddPropertyForm/>}/>
         <Route path='/search' element={<SearchResult/>}/>
         <Route path='/showProperty' element={<Propertydetails/>}/>
+        <Route path='/login' element={<Login/>}/>
       </Routes>
       </BrowserRouter>
       {/* <Footer/> */}
