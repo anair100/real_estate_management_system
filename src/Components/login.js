@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "./api";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -9,8 +10,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    //   const res = await axios.post("http://localhost:5000/login", formData);
-    const res = await axios.post("/api/properties/login", formData);
+      const res = await axios.post("http://localhost:8080/api/properties/login", formData);
+    // const res = await api.post("/api/properties/login", formData);
       localStorage.setItem("token", res.data.token);
       navigate("/home");
     } catch (err) {

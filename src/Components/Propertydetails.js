@@ -30,26 +30,31 @@ const Propertydetails = () => {
       };
     }, []);
 
-    const checkAdmin = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode JWT
-          if (decodedToken.username === "admin") {
-            setIsAdmin(true);
+    useEffect(() => {
+      const checkAdmin = () => {
+        const token = localStorage.getItem("token");
+        console.log("token=>", token);
+        if (token) {
+          try {
+            const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode JWT
+            console.log("decodedToken=>", decodedToken);
+            if (decodedToken.username === "admin") {
+              setIsAdmin(true);
+            }
+          } catch (error) {
+            setIsAdmin(false);
+            console.log("Error in checkAdmin", error);
           }
-        } catch (error) {
-          setIsAdmin(false);
         }
-      }
-    };
-
-    checkAdmin();
+      };
+  
+      checkAdmin();
+    }, []); // Run only once when the component mounts
 
     const handleDelete = async (id) => {
       const token = localStorage.getItem("token");
-      // await axios.delete(`http://localhost:5000/properties/${id}`
-      await api.delete(`/api/properties/${id}`
+      await api.delete(`http://localhost:8080/api/properties/${id}`
+      // await api.delete(`/api/properties/${id}`
       , {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -131,7 +136,8 @@ const Propertydetails = () => {
                 <button>Edit</button>
                 <button onClick={() => handleDelete(queryParams.get("_id"))}>Delete</button>
               </>
-            )}
+            )
+       }
 
       </Container>
     </div>
