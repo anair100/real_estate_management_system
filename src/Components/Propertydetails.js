@@ -53,8 +53,8 @@ const Propertydetails = () => {
 
     const handleDelete = async (id) => {
       const token = localStorage.getItem("token");
-      await api.delete(`http://localhost:8080/api/properties/${id}`
-      // await api.delete(`/api/properties/${id}`
+     // await api.delete(`http://localhost:8080/api/properties/${id}`
+       await api.delete(`/api/properties/${id}`
       , {
         headers: { Authorization: `Bearer ${token}` },
       });

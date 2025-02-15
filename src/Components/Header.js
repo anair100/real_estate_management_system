@@ -3,8 +3,22 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Navigate, useLocation, useNavigate } from 'react-router';
+
+
+
+
 
 const Header = () => {
+
+  const navigate = useNavigate(); // ✅ Hook inside component
+  const location = useLocation(); // ✅ Get current location
+
+  const handleLoginClick = () => {
+    navigate("/login", { state: { from: location } }); // Store current location
+  };
+
+
   return (
     <Navbar expand="lg" style = {{backgroundColor : "#5BB4C5"}}>
       <Container style = {{backgroundColor : "#5BB4C5"}}>
@@ -27,10 +41,9 @@ const Header = () => {
             </NavDropdown>
           </Nav>
           <div className="ms-auto">
-        <Nav.Link href="/login" style = {{fontSize: "1.5vw", fontWeight: "400"}}>
+        <Nav.Link onClick={handleLoginClick} style = {{fontSize: "1.5vw", fontWeight: "400"}}>
           Sign Up
         </Nav.Link>
-        
       </div>
         </Navbar.Collapse>
       </Container>
