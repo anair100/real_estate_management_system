@@ -53,8 +53,8 @@ const Propertydetails = () => {
 
     const handleDelete = async (id) => {
       const token = localStorage.getItem("token");
-     // await api.delete(`http://localhost:8080/api/properties/${id}`
-       await api.delete(`/api/properties/${id}`
+      await api.delete(`http://localhost:8080/api/properties/${id}`
+     //  await api.delete(`/api/properties/${id}`
       , {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -134,7 +134,7 @@ const Propertydetails = () => {
        {isAdmin && (
               <>
                 <button>Edit</button>
-                <button onClick={() => handleDelete(queryParams.get("_id"))}>Delete</button>
+                <button onClick={() => handleDelete(queryParams.get("id"))}>Delete</button>
               </>
             )
        }

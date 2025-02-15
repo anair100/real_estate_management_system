@@ -31,8 +31,8 @@ const SearchResult = () => {
         console.log('inside fetchProperties')
         const query = searchParams.toString();
 
-       //const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
-        const response = await api.get(`/api/properties/search?${searchParams}`);
+        const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
+       // const response = await api.get(`/api/properties/search?${searchParams}`);
         console.log(response.data);
         setProperties(response.data);
         console.log(properties);
