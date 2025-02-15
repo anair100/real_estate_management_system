@@ -1,10 +1,12 @@
 import React from 'react'
-import { useLocation } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
 import { Container, Image } from "react-bootstrap";
 import api from './api';
 
 const Propertydetails = () => {
+const navigate =useNavigate();
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type");
@@ -59,6 +61,7 @@ const Propertydetails = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       // setProperties(properties.filter((prop) => prop._id !== id));
+      navigate('/home')
     };
   
 
