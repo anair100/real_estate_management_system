@@ -63,14 +63,13 @@ const Propertydetails = () => {
         {type} For {rentOrSell} In {propertyLocation}
       </div>
       <div style={{ width: "90%", height: isMobile? "40%": "20%", margin: "auto", marginTop: isMobile? "4vw": "2vw"}}>
-        <Image style={{ width: "100%"}} 
-        // src={`http://localhost:8080/api/${images[0]}`}
-        src={`/${images[0]}`}
+        <Image style={{ width: "100%", height:"20%",  objectFit: "contain"}} 
+         src={`http://localhost:8080/${images[0]}`}
+        //src={`/${images[0]}`}
          alt="Property" onClick={() => setIsOpen(true)}/>
         {isOpen && (
          <div style={{position: "fixed", top: 0, left: 0,
             width: "100%",
-
             height: "100%",
             backgroundColor: "rgba(0,0,0,0.8)",
             display: "flex",
@@ -79,8 +78,8 @@ const Propertydetails = () => {
           }}
           onClick={() => setIsOpen(false)}>
           <img 
-          // src={`http://localhost:8080/${images[0]}`}
-          src={`/${images[0]}`}
+          src={`http://localhost:8080/${images[0]}`}
+          //src={`/${images[0]}`}
             alt="Full Image" style={{ width: "50%" }} />
         </div>
       )}
