@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Image } from "react-bootstrap";
 import home_image from '../resources/home_image.webp';
 import api from './api';
-import { BiPaperclip } from "react-icons/bi"; 
+import { BiPaperclip } from "react-icons/bi";
 
 const AddPropertyForm = () => {
   const [imageNames, setImageNames] = useState([]);
@@ -192,6 +192,8 @@ const AddPropertyForm = () => {
         alert("Please enter the property price.");
       } else if(!formData.size){
         alert("Please enter the property size.");
+      } else if(formData.images.length === 0){
+        alert("Please upload atleast one property image.");
       } else {
         const response  = await api.post('http://localhost:8080/api/properties/add', data);
         //const response  = await api.post('/api/properties/add', data);

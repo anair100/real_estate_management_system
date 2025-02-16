@@ -48,17 +48,6 @@ const SearchResult = () => {
           googleLocation: 'g1',
           for: 'sell',
           images: [home_image, home_image]
-        },
-        {
-          type: 'flate',
-          price: '3345',
-          phone: '121',
-          email: 'abc2',
-          description: 'd2',
-          location: 'indore',
-          googleLocation: 'g2',
-          for: 'rent',
-          images: [home_image]
         }]);
       }
     };
@@ -152,8 +141,8 @@ const SearchResult = () => {
           <img style={{
            width: "100%", height: "auto", aspectRatio: "16/16", objectFit: "cover", borderRadius: "1vw"
           }}
-          //  src={`http://localhost:8080/api/${property.images[0]}`} alt="Property"
-          src={`/${property.images[0]}`} alt="Property"
+          src={`http://localhost:8080/${property.images[0]}`} alt="Property"
+          //src={`/${property.images[0]}`} alt="Property"
             />
          </div>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",

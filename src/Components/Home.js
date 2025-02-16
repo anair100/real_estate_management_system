@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from 'react-router';
 
-
 function Home() {
   const [locations, setLocations] = useState([]);
   const inputRef = useRef(null);

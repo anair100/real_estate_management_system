@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router";
 import Login from './Components/login';
 
-
 function App() {
   return (
     <div>
