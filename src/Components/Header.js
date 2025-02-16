@@ -1,11 +1,22 @@
 import React , { useState, useEffect } from 'react'
-import { Navbar, Nav, Container, Offcanvas } from "react-bootstrap";
+import { Offcanvas } from "react-bootstrap";
 import { List } from "lucide-react";
-import { Link } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Navigate, useLocation, useNavigate } from 'react-router';
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [showSidebar, setShowSidebar] = useState(false);
+  
+  const navigate = useNavigate(); // ✅ Hook inside component
+  const location = useLocation(); // ✅ Get current location
+
+  const handleLoginClick = () => {
+    navigate("/login", { state: { from: location } }); // Store current location
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,7 +45,10 @@ const Header = () => {
           <a href="https://google.com" target="_blank" rel="noopener noreferrer" style={{fontSize: isMobile ? "4vw" : "2vw", fontWeight: "500", padding: "0",
             border: "none", textDecoration: "none", color: "black", marginBottom: "0", padding: "0", marginLeft: "2vw", borderStyle: "solid", marginTop: "3vw"
           }} >Property Management</a>
-          <a href="https://google.com" target="_blank" rel="noopener noreferrer" style={{fontSize: isMobile ? "3vw" : "1.5vw", fontWeight: "400", padding: "0",
+          <a onClick={(e) => {
+           e.preventDefault(); // Prevent default anchor behavior
+           handleLoginClick(); // Call the function
+           }}target="_blank" rel="noopener noreferrer" style={{fontSize: isMobile ? "3vw" : "1.5vw", fontWeight: "400", padding: "0",
             border: "none", textDecoration: "none", color: "black", marginBottom: "0", padding: "0", marginLeft: "auto"
           }} >Sign Up</a>
           <Navbar/>
@@ -91,4 +105,4 @@ const Header = () => {
 </>);
 }
 
-export default Header
+export default Header;

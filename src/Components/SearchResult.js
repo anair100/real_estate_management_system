@@ -32,7 +32,7 @@ const SearchResult = () => {
         const query = searchParams.toString();
 
         const response = await api.get(`http://localhost:8080/api/properties/search?${searchParams}`);
-        //const response = await api.get(`/api/properties/search?${searchParams}`);
+       // const response = await api.get(`/api/properties/search?${searchParams}`);
         console.log(response.data);
         setProperties(response.data);
         console.log(properties);
@@ -147,7 +147,7 @@ const SearchResult = () => {
          </div>
          <div style = {{marginBottom: "0", display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start",
           padding: "0", height: "100%", marginRight: "0vw", marginLeft: isMobile? "3vw": "2vw",backgroundColor: "#FAFEFF", width: "60%"}}>  
-          <Link to={`/showProperty?type=${encodeURIComponent(property.type)}&rentOrSell=${encodeURIComponent(property.rentOrSell)}&location=${encodeURIComponent(property.location)}&size=${encodeURIComponent(property.size)}&price=${encodeURIComponent(property.price)}&images=${encodeURIComponent(property.images?.join(","))}`}
+          <Link to={`/showProperty?id=${encodeURIComponent(property._id)}&type=${encodeURIComponent(property.type)}&rentOrSell=${encodeURIComponent(property.rentOrSell)}&location=${encodeURIComponent(property.location)}&size=${encodeURIComponent(property.size)}&price=${encodeURIComponent(property.price)}&images=${encodeURIComponent(property.images?.join(","))}`}
            style = {{fontSize: isMobile? "4vw": "2vw", fontWeight: "700", textDecoration: "underline", padding: "0", marginBottom: "0", color: 'blue'}}>
            {property.type} For {property.rentOrSell} In {property.location}
           </Link>

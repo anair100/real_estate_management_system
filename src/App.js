@@ -12,8 +12,9 @@ import Login from './Components/login';
 function App() {
   return (
     <div>
-      <Header/>
+     
       <BrowserRouter>
+      <Header/>
       <Routes>
         <Route  index  element={[<Home/>]}/> 
         <Route path='/home' element={<Home/>}/>
